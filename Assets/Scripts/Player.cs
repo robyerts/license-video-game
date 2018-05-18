@@ -7,7 +7,7 @@ public class Player : MonoBehaviour {
     private Animator anim;
     private NavMeshAgent navMeshAgent;
     private Transform enemyTransform;
-    [SerializeField] private GameObject enemy;
+
 
     // Use this for initialization
     void Start () {
@@ -24,8 +24,9 @@ public class Player : MonoBehaviour {
         Debug.Log(c.gameObject.tag + " - inside Player OnCollisionEnter");
         if (c.gameObject.tag == "BruteWarriorFist" || c.gameObject.tag == "Firebolt")
         {
-            //anim.Play("Unarmed-GetHit-B1");
-            anim.SetTrigger("gotHit");
+            anim.Play("Unarmed-GetHit-B1");
+            //anim.SetTrigger("gotHit");
         }
     }
+
 }

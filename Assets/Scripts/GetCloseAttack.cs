@@ -54,7 +54,7 @@ public class GetCloseAttack : MonoBehaviour {
         if(isReturning && Vector3.Distance(transform.position, initialTransform.position) < 0.2)
         {
             anim.SetBool("isRunning", false);
-            navMeshAgent.Stop();
+            navMeshAgent.isStopped = true;
             hasToRotateForwards = true;
         }
         if (hasToRotateForwards)
@@ -78,6 +78,7 @@ public class GetCloseAttack : MonoBehaviour {
         Debug.Log(c.gameObject.tag + " - Inside GetCloseAttack OnTriggerEnter");
         if (c.gameObject.tag == "EnemyAttackRange")
         {
+            //Time.timeScale = 0.5f;
             navMeshAgent.isStopped = true;
             anim.SetBool("isRunning", false);
             //foreach(BoxCollider collider in fistsColliders)
