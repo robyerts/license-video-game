@@ -11,6 +11,10 @@ TagManager:
   - Fire
   - Enemy
   - GrayButton
+  - PlayerHealthBar
+  - SorceressHealthBar
+  - WarriorHealthBar
+  - EndGameButton
   layers:
   - Default
   - TransparentFX

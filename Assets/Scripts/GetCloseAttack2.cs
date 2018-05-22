@@ -12,7 +12,6 @@ public class GetCloseAttack2 : MonoBehaviour
     private Animator anim;
     [SerializeField] private Transform initialTransform;
     [SerializeField] private Transform idleViewOrientation;
-    [SerializeField] private int health = 60;
     private bool attackAnimPlayed;
     private bool hasToRotateBackwards;
     private bool hasToRotateForwards;
@@ -20,6 +19,10 @@ public class GetCloseAttack2 : MonoBehaviour
     private bool isReturning;
     private bool isAtacking;
 
+    [SerializeField] private int maxhealth = 60;
+    private int currenthealth;
+
+    [SerializeField] private SimpleHealthBar healthBar;
 
     // Use this for initialization
     void Start()
@@ -34,6 +37,9 @@ public class GetCloseAttack2 : MonoBehaviour
         hasToRotateBackwards = false;
         attackAnimPlayed = false;
         isAtacking = false;
+
+        currenthealth = maxhealth;
+        healthBar.UpdateBar(currenthealth, maxhealth);
 
     }
 
@@ -106,10 +112,19 @@ public class GetCloseAttack2 : MonoBehaviour
         isAtacking = false;
     }
 
-    public void GetHit()
+    public void GetHit(int dmg)
     {
         Debug.Log("Inside Brute Warrior GetHit");
         rb.AddForce(-transform.forward * 8000, ForceMode.Impulse);
+
+        currenthealth -= dmg;
+        healthBar.UpdateBar(currenthealth, maxhealth);
+
+        if (currenthealth <= 0)
+        {
+            anim.enabled = false;
+            GameManager.instance.RemoveDeadEnemy(this.gameObject);
+        }
     }
 
     public void Hit()

@@ -7,7 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
     [SerializeField] private GameObject player;
-    [SerializeField] private List<GameObject> enemies;
+    [SerializeField] private Button endGameBtn;
+    public List<GameObject> enemies;
     [SerializeField] private List<Button> grayButtons;
     private int indexCurrentAttackingEnemy = -1;
 
@@ -17,6 +18,8 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        Time.timeScale = 2f;
+
         if (instance == null)
         {
             instance = this;
@@ -26,6 +29,11 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
+    }
+
+    void Start()
+    {
+        player.GetComponent<Player2>().currentEnemy = enemies[0];
     }
 
     void Update()
@@ -57,7 +65,6 @@ public class GameManager : MonoBehaviour
                     DeativateGrayButtons();
                 }
             }
-
         }
     }
 
@@ -75,5 +82,26 @@ public class GameManager : MonoBehaviour
         {
             b.gameObject.SetActive(false);
         }
+    }
+
+    public void RemoveDeadEnemy(GameObject deadEnemy)
+    {
+        enemies.Remove(deadEnemy);
+        if(enemies.Count == 0)
+        {
+            endGameBtn.gameObject.SetActive(true);
+            endGameBtn.GetComponentInChildren<Text>().text = "mission succeeded";
+            return;
+        }
+        Player2 playerScript = player.GetComponent<Player2>();
+        if (playerScript.currentEnemy == deadEnemy)
+        {
+            playerScript.currentEnemy = enemies[0];
+        }
+    }
+    public void setGameOver()
+    {
+        endGameBtn.gameObject.SetActive(true);
+        endGameBtn.GetComponentInChildren<Text>().text = "mission failed";
     }
 }

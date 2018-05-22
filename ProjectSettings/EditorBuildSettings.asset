@@ -4,4 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/removedColliderPhysics.unity
+    guid: 6e1f44705682934429051d49e617457a
+  m_configObjects: {}
