@@ -17,6 +17,7 @@ public class Player2 : MonoBehaviour
     private int rotationSpeed = 10;
     private bool isReturning;
     private bool isAtacking;
+    private bool isRepositioningFromHit;
     [SerializeField] private Transform initialTransform;
     [SerializeField] private Transform idleViewOrientation;
     private int attackNr = 0;
@@ -46,6 +47,7 @@ public class Player2 : MonoBehaviour
         hasToRotateBackwards = false;
         attackAnimPlayed = false;
         isAtacking = false;
+        isRepositioningFromHit = false;
         currentHealth = maxhealth;
         currentMana = maxMana;
         manaBar.UpdateBar(currentMana, maxMana);
@@ -132,6 +134,13 @@ public class Player2 : MonoBehaviour
             }
             transform.rotation = Quaternion.LookRotation(newDir);
         }
+
+        if (isRepositioningFromHit && Vector3.Distance(transform.position, initialTransform.position) < 0.2)
+        {
+            anim.SetBool("isRunning", false);
+            navMeshAgent.isStopped = true;
+            isRepositioningFromHit = false;
+        }
     }
 
     //for sorceress attack
@@ -172,12 +181,25 @@ public class Player2 : MonoBehaviour
         rb.AddForce(-transform.forward * 10000, ForceMode.Impulse);
         anim.Play("Unarmed-GetHit-B1");
 
-        currentHealth -= 30;
+        currentHealth -= 10;
         healthBar.UpdateBar(currentHealth, maxhealth);
         if(currentHealth <= 0)
         {
             GameManager.instance.setGameOver();
         }
+        else
+        {
+            StartCoroutine(RepostionFromHit());
+        }
+    }
+
+    IEnumerator RepostionFromHit()
+    {
+        yield return new WaitForSeconds(0.5f);
+        isRepositioningFromHit = true;
+        //anim.SetBool("isRunning", true);
+        navMeshAgent.isStopped = false;
+        navMeshAgent.SetDestination(initialTransform.position);
     }
 
 }

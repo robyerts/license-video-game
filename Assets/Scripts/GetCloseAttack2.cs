@@ -18,6 +18,7 @@ public class GetCloseAttack2 : MonoBehaviour
     private int rotationSpeed = 10;
     private bool isReturning;
     private bool isAtacking;
+    private bool isRepositioningFromHit;
 
     [SerializeField] private int maxhealth = 60;
     private int currenthealth;
@@ -37,6 +38,7 @@ public class GetCloseAttack2 : MonoBehaviour
         hasToRotateBackwards = false;
         attackAnimPlayed = false;
         isAtacking = false;
+        isRepositioningFromHit = false;
 
         currenthealth = maxhealth;
         healthBar.UpdateBar(currenthealth, maxhealth);
@@ -103,6 +105,12 @@ public class GetCloseAttack2 : MonoBehaviour
             }
             transform.rotation = Quaternion.LookRotation(newDir);
         }
+        if (isRepositioningFromHit && Vector3.Distance(transform.position, initialTransform.position) < 0.2)
+        {
+            anim.SetBool("isRunning", false);
+            navMeshAgent.isStopped = true;
+            isRepositioningFromHit = false;
+        }
     }
 
 
@@ -124,7 +132,19 @@ public class GetCloseAttack2 : MonoBehaviour
         {
             anim.enabled = false;
             GameManager.instance.RemoveDeadEnemy(this.gameObject);
+        } else
+        {
+            StartCoroutine(RepostionFromHit());
         }
+    }
+
+    IEnumerator RepostionFromHit()
+    {
+        yield return new WaitForSeconds(0.5f);
+        isRepositioningFromHit = true;
+        //anim.SetBool("isRunning", true);
+        navMeshAgent.isStopped = false;
+        navMeshAgent.SetDestination(initialTransform.position);
     }
 
     public void Hit()

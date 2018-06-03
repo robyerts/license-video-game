@@ -91,6 +91,7 @@ public class GameManager : MonoBehaviour
         {
             endGameBtn.gameObject.SetActive(true);
             endGameBtn.GetComponentInChildren<Text>().text = "mission succeeded";
+            ActivateGrayButtons();
             return;
         }
         Player2 playerScript = player.GetComponent<Player2>();
