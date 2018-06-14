@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -11,15 +12,17 @@ public class GameManager : MonoBehaviour
     public List<GameObject> enemies;
     [SerializeField] private List<Button> grayButtons;
     private int indexCurrentAttackingEnemy = -1;
+    public bool gameOver = false;
 
+    public List<string> enemyProjectilesTags;
+    public List<int> enemyProjectilesDmg;
     public bool enemyFinishedAttack = true;
     public bool enemiesAttacksStarted;
+   
   
 
     void Awake()
     {
-        Time.timeScale = 2f;
-
         if (instance == null)
         {
             instance = this;
@@ -33,7 +36,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        player.GetComponent<Player2>().currentEnemy = enemies[0];
+        player.GetComponent<Player>().currentEnemy = enemies[0];
     }
 
     void Update()
@@ -46,8 +49,8 @@ public class GameManager : MonoBehaviour
                 if(indexCurrentAttackingEnemy < enemies.Count)
                 {
                     GameObject enemy = enemies[indexCurrentAttackingEnemy];
-                    GetCloseAttack2 meleeEnemy = enemy.GetComponent<GetCloseAttack2>();
-                    SorceressAttack mageEnemy = enemy.GetComponent<SorceressAttack>();
+                    MeleeEnemy meleeEnemy = enemy.GetComponent<MeleeEnemy>();
+                    RangedEnemy mageEnemy = enemy.GetComponent<RangedEnemy>();
                     enemyFinishedAttack = false;
                     if (meleeEnemy != null)
                     {
@@ -62,7 +65,8 @@ public class GameManager : MonoBehaviour
                 {
                     enemiesAttacksStarted = false;
                     indexCurrentAttackingEnemy = -1;
-                    DeativateGrayButtons();
+                    if(!gameOver && enemies.Count != 0)
+                        DeativateGrayButtons();
                 }
             }
         }
@@ -94,7 +98,7 @@ public class GameManager : MonoBehaviour
             ActivateGrayButtons();
             return;
         }
-        Player2 playerScript = player.GetComponent<Player2>();
+        Player playerScript = player.GetComponent<Player>();
         if (playerScript.currentEnemy == deadEnemy)
         {
             playerScript.currentEnemy = enemies[0];
@@ -102,7 +106,30 @@ public class GameManager : MonoBehaviour
     }
     public void setGameOver()
     {
+        gameOver = true;
         endGameBtn.gameObject.SetActive(true);
         endGameBtn.GetComponentInChildren<Text>().text = "mission failed";
+    }
+
+    public void loadMenuScene()
+    {
+        StartCoroutine(LoadYourAsyncScene("MainMenuScene"));
+    }
+
+    IEnumerator LoadYourAsyncScene(string name)
+    {
+        // The Application loads the Scene in the background as the current Scene runs.
+        // This is particularly good for creating loading screens.
+        // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
+        // a sceneBuildIndex of 1 as shown in Build Settings.
+
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(name);
+
+        // Wait until the asynchronous scene fully loads
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+        MenuManager.instance.disableNewCharNamePanel();
     }
 }

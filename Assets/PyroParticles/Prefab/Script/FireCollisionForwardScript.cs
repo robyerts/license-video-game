@@ -20,7 +20,13 @@ namespace DigitalRuby.PyroParticles
 
         public void OnCollisionEnter(Collision col)
         {
+            Debug.Log(col.gameObject.tag + " - inside FireCollisionForwardScript OnCollisionEnter");
+            Debug.Log("you can put the collision logic inside this firebolt collider script");
             CollisionHandler.HandleCollision(gameObject, col);
+            if(col.gameObject.tag == "Player")
+            {
+
+            }
         }
     }
 }

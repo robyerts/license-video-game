@@ -15,6 +15,7 @@ TagManager:
   - SorceressHealthBar
   - WarriorHealthBar
   - EndGameButton
+  - PlayerName
   layers:
   - Default
   - TransparentFX
