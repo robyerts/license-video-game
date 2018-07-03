@@ -30,7 +30,7 @@ EditorBuildSettings:
     path: Assets/Photon Unity Networking/Demos/PunBasics-Tutorial/Scenes/PunBasics-Room
       for 4.unity
     guid: e7a7f9734636d415ca84ef3aaf7680f6
-  - enabled: 1
+  - enabled: 0
     path: Assets/Photon Unity Networking/Demos/DemoChat/DemoChat-Scene.unity
     guid: ec07267f6a28fb044ac89845274e79af
   m_configObjects: {}

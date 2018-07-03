@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance = null;
     [SerializeField] private GameObject player;
     [SerializeField] private Button endGameBtn;
+    [SerializeField] private GameObject upgradePanel;
     public List<GameObject> enemies;
     [SerializeField] private List<Button> grayButtons;
     private int indexCurrentAttackingEnemy = -1;
@@ -18,8 +19,12 @@ public class GameManager : MonoBehaviour
     public List<int> enemyProjectilesDmg;
     public bool enemyFinishedAttack = true;
     public bool enemiesAttacksStarted;
-   
-  
+    public bool missionSucceeded = false;
+
+    public int newAbilityIndex = -1;
+    public int increseHPBy = 20;
+    public int increseManaBy = 15;
+    public int missionNumber = 1;
 
     void Awake()
     {
@@ -27,11 +32,11 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
-        DontDestroyOnLoad(gameObject);
+        //shouldn't be needed
+        //else if (instance != this)
+        //{
+        //    Destroy(this.gameObject);
+        //}
     }
 
     void Start()
@@ -95,6 +100,8 @@ public class GameManager : MonoBehaviour
         {
             endGameBtn.gameObject.SetActive(true);
             endGameBtn.GetComponentInChildren<Text>().text = "mission succeeded";
+            endGameBtn.onClick.AddListener(delegate { enableUpgradeMenu(); });
+            missionSucceeded = true;
             ActivateGrayButtons();
             return;
         }
@@ -104,32 +111,66 @@ public class GameManager : MonoBehaviour
             playerScript.currentEnemy = enemies[0];
         }
     }
+    public void enableUpgradeMenu()
+    {
+        int missionsCompleted = player.GetComponent<Player>().Character.MissionsCompleted;
+        if (player.GetComponent<Player>().Character.MissionsCompleted < missionNumber)
+        {
+            Transform upgradeAbilityTr = upgradePanel.transform.Find("Ability");
+            upgradeAbilityTr.Find("NewAbilityImg").gameObject.GetComponent<Image>().sprite = player.GetComponent<Player>().AbilitiesIcons[newAbilityIndex];
+            upgradeAbilityTr.Find("NewAbilityName").gameObject.GetComponent<Text>().text = player.GetComponent<Player>().AbilitiesNames[newAbilityIndex];
+            upgradeAbilityTr.Find("ManaCost").gameObject.GetComponent<Text>().text = player.GetComponent<Player>().AbilitiesManaCosts[newAbilityIndex].ToString();
+            upgradeAbilityTr.Find("Dmg").gameObject.GetComponent<Text>().text = player.GetComponent<Player>().AbilitiesDmg[newAbilityIndex].ToString();
+
+            Transform increaseHPTr = upgradePanel.transform.Find("HP");
+            increaseHPTr.Find("Amount").GetComponent<Text>().text = "+" + increseHPBy.ToString();
+
+            Transform increaseManaTr = upgradePanel.transform.Find("Mana");
+            increaseManaTr.Find("Amount").GetComponent<Text>().text = "+" + increseManaBy.ToString();
+
+            endGameBtn.gameObject.SetActive(false);
+            upgradePanel.SetActive(true);
+        } else
+        {
+            loadMenuScene();
+        }
+       
+    }
     public void setGameOver()
     {
         gameOver = true;
         endGameBtn.gameObject.SetActive(true);
         endGameBtn.GetComponentInChildren<Text>().text = "mission failed";
+        endGameBtn.onClick.AddListener(delegate { loadMenuScene(); }); //should be be default, but just in case
+        missionSucceeded = false;
     }
-
+    
+    public void applyUpgrade(int choice)
+    {
+        //0 - ability
+        //1 - HP
+        //2 - Manass
+        Character character = player.GetComponent<Player>().Character;
+        switch (choice)
+        {
+            case 0:
+                character.Abilities[newAbilityIndex] = 1;
+                break;
+            case 1:
+                character.MaxHP += increseHPBy;
+                break;
+            case 2:
+                character.MaxMana += increseManaBy;
+                break;
+        }
+        character.MissionsCompleted++;
+        character.Save();
+        SceneLoader.instance.Character = character;
+        loadMenuScene();
+    }
     public void loadMenuScene()
     {
-        StartCoroutine(LoadYourAsyncScene("MainMenuScene"));
+        SceneLoader.instance.loadMenuScene();
     }
 
-    IEnumerator LoadYourAsyncScene(string name)
-    {
-        // The Application loads the Scene in the background as the current Scene runs.
-        // This is particularly good for creating loading screens.
-        // You could also load the Scene by using sceneBuildIndex. In this case Scene2 has
-        // a sceneBuildIndex of 1 as shown in Build Settings.
-
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(name);
-
-        // Wait until the asynchronous scene fully loads
-        while (!asyncLoad.isDone)
-        {
-            yield return null;
-        }
-        MenuManager.instance.disableNewCharNamePanel();
-    }
 }

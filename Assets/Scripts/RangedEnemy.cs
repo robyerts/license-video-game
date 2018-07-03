@@ -9,9 +9,15 @@ public class RangedEnemy : MonoBehaviour {
     private Rigidbody rb;
     [SerializeField] private GameObject fireboltPrefab;
     [SerializeField] private Transform fireboltInstatiateTransfrom;
+    [SerializeField] private GameObject flametrowerPrefab;
+    [SerializeField] private Transform flametrowerInstatiateTransfrom;
     [SerializeField] private Transform initialTransform;
     [SerializeField] private SimpleHealthBar healthBar;
-    [SerializeField] private int maxhealth = 40;
+    [SerializeField] private int maxhealth = 3; // min 2
+    [SerializeField] private int flameThrowerUnlikeabilityChance = 30; //TBC
+                                                                       // add tooltip
+    [SerializeField] private int flameThrowerDmg = 22;
+    [SerializeField] private GameObject player;
     private bool isDead;
     private int currenthealth;
     private bool isRepositioningFromHit;
@@ -61,7 +67,17 @@ public class RangedEnemy : MonoBehaviour {
 
     public void Hit()
     {
-        Instantiate(fireboltPrefab, fireboltInstatiateTransfrom.position, fireboltInstatiateTransfrom.rotation);
+        System.Random rnd = new System.Random();
+        int chance = rnd.Next(1, flameThrowerUnlikeabilityChance);
+        if(chance == 1)
+        {
+            Instantiate(flametrowerPrefab, flametrowerInstatiateTransfrom.position, flametrowerInstatiateTransfrom.rotation);
+            player.GetComponent<Player>().GetHit(flameThrowerDmg);
+        }
+        else
+        {
+            Instantiate(fireboltPrefab, fireboltInstatiateTransfrom.position, fireboltInstatiateTransfrom.rotation);
+        }
     }
 
     public void EndHit()

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     private Character character;
+
     private Animator anim;
     private NavMeshAgent navMeshAgent;
     private Rigidbody rb;
@@ -25,18 +26,112 @@ public class Player : MonoBehaviour
     private int attackNr = 0;
 
     [SerializeField] private SimpleHealthBar healthBar;
-    [SerializeField] private int maxhealth = 100;
     private int currentHealth;
     [SerializeField] private SimpleHealthBar manaBar;
-    [SerializeField] private int maxMana = 80;
     private int currentMana;
 
-    [SerializeField] private List<string> abilitiesAnimNames;
-    [SerializeField] private List<float> abilitiesAttackRanges;
-    [SerializeField] private List<int> abilitiesManaCosts;
-    [SerializeField] private List<Sprite> abilitiesIcons;
-    [SerializeField] private List<int> abilitiesXpCosts;
+    private List<string> abilitiesAnimNames;
+    private List<string> abilitiesNames;
+    private List<float> abilitiesAttackRanges;
+    private List<int> abilitiesManaCosts;
+    private List<int> abilitiesDmg;
+    private List<Sprite> abilitiesIcons;
+    private List<int> abilitiesXpCosts; // currently not used
+    private int maxNrAbilitiesUI = 4;
 
+    [SerializeField] private GameObject RPGCharUI;
+    private List<GameObject> abilitiesButtons;
+
+    public Character Character
+    {
+        get
+        {
+            return character;
+        }
+
+        set
+        {
+            character = value;
+        }
+    }
+
+    public List<string> AbilitiesAnimNames
+    {
+        get
+        {
+            return abilitiesAnimNames;
+        }
+
+        set
+        {
+            abilitiesAnimNames = value;
+        }
+    }
+
+    public List<string> AbilitiesNames
+    {
+        get
+        {
+            return abilitiesNames;
+        }
+
+        set
+        {
+            abilitiesNames = value;
+        }
+    }
+
+    public List<float> AbilitiesAttackRanges
+    {
+        get
+        {
+            return abilitiesAttackRanges;
+        }
+
+        set
+        {
+            abilitiesAttackRanges = value;
+        }
+    }
+
+    public List<int> AbilitiesManaCosts
+    {
+        get
+        {
+            return abilitiesManaCosts;
+        }
+
+        set
+        {
+            abilitiesManaCosts = value;
+        }
+    }
+
+    public List<Sprite> AbilitiesIcons
+    {
+        get
+        {
+            return abilitiesIcons;
+        }
+
+        set
+        {
+            abilitiesIcons = value;
+        }
+    }
+
+    public List<int> AbilitiesDmg
+    {
+        get
+        {
+            return abilitiesDmg;
+        }
+
+        set
+        {
+            abilitiesDmg = value;
+        }
+    }
 
     // 0 - basic attack
     // 1 - ability1
@@ -46,10 +141,24 @@ public class Player : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        //int indexChar = PlayerPrefs.GetInt("currentCharIndex", 0);
+        //character = new Character(indexChar);
+        //character.Load();
+        character = SceneLoader.instance.Character;
+        nameLabel.text = character.Name;
         currentEnemyTransform = currentEnemy.transform;
         rb = GetComponent<Rigidbody>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+
+        abilitiesAnimNames = PlayerGameSettings.instance.abilitiesAnimNames;
+        abilitiesNames = PlayerGameSettings.instance.abilitiesNames;
+        abilitiesAttackRanges = PlayerGameSettings.instance.abilitiesAttackRanges;
+        abilitiesDmg = PlayerGameSettings.instance.abilitiesDmg;
+        abilitiesIcons = PlayerGameSettings.instance.abilitiesIcons;
+        abilitiesManaCosts = PlayerGameSettings.instance.abilitiesManaCosts;
+        abilitiesXpCosts = PlayerGameSettings.instance.abilitiesXpCosts;
+        maxNrAbilitiesUI = PlayerGameSettings.instance.maxNrAbilitiesInBattle;
 
         isReturning = false;
         hasToRotateForwards = false;
@@ -57,9 +166,44 @@ public class Player : MonoBehaviour
         attackAnimPlayed = false;
         isAtacking = false;
         isRepositioningFromHit = false;
-        currentHealth = maxhealth;
-        currentMana = maxMana;
-        manaBar.UpdateBar(currentMana, maxMana);
+        currentHealth = character.MaxHP;
+        currentMana = character.MaxMana;
+        healthBar.UpdateBar(currentHealth, currentHealth);
+        manaBar.UpdateBar(currentMana, currentMana);
+        abilitiesButtons = new List<GameObject>();
+
+        for (int i = 0; i < abilitiesAnimNames.Count; i++)
+        {
+            abilitiesButtons.Add(RPGCharUI.transform.Find("Ability" + i).gameObject);
+        }
+
+        populateUIButtons();
+    }
+
+    public void populateUIButtons()
+    {
+        int btnIndex = 0;
+        for(int i = 0; i < character.Abilities.Count; i++)
+        {
+            if(character.Abilities[i] == 1)
+            {
+                abilitiesButtons[btnIndex].transform.Find("Mana Cost").gameObject.GetComponent<Text>().text = abilitiesManaCosts[i].ToString();
+                abilitiesButtons[btnIndex].GetComponent<Image>().sprite = abilitiesIcons[i];
+                Button btn = abilitiesButtons[btnIndex].GetComponent<Button>();
+                int a = i;
+                abilitiesButtons[btnIndex].GetComponent<Button>().onClick.AddListener(delegate { StartAttack(a); });
+                btnIndex++;
+                //it shouldn't get here
+                // don't allow more than maxNrAbilitiesUI to be stored!
+                if (btnIndex >= maxNrAbilitiesUI)
+                    break;
+            }
+        }
+        for (int i = btnIndex; i < maxNrAbilitiesUI; i++)
+        {
+            abilitiesButtons[i].SetActive(false);
+        }
+
     }
 
     public void StartAttack(int attackNr)
@@ -69,7 +213,7 @@ public class Player : MonoBehaviour
         isAtacking = true;
 
         currentMana -= abilitiesManaCosts[attackNr];
-        manaBar.UpdateBar(currentMana, maxMana);
+        manaBar.UpdateBar(currentMana, character.MaxMana);
         
 
         anim.SetBool("isRunning", true);
@@ -116,7 +260,6 @@ public class Player : MonoBehaviour
         }
         if (hasToRotateForwards)
         {
-            //Debug.Log(Time.deltaTime);
             Vector3 targetDir = idleViewOrientation.position - transform.position;
             // The step size is equal to speed times frame time.
             float step = rotationSpeed * Time.deltaTime;
@@ -148,9 +291,23 @@ public class Player : MonoBehaviour
         int projectileIndex = GameManager.instance.enemyProjectilesTags.FindIndex(proj => proj.CompareTo(c.gameObject.tag) == 0);
         if (projectileIndex != -1)
         {
-            anim.Play("Unarmed-GetHit-B1");
             currentHealth -= GameManager.instance.enemyProjectilesDmg[projectileIndex];
-            healthBar.UpdateBar(currentHealth, maxhealth);
+            healthBar.UpdateBar(currentHealth, character.MaxHP);
+            reactToCurrentHP();
+        }
+    }
+    public void reactToCurrentHP()
+    {
+        if (currentHealth <= 0)
+        {
+            //anim.enabled = false;
+            anim.Play("Unarmed-Death1");
+            GameManager.instance.setGameOver();
+        }
+        else
+        {
+            anim.Play("Unarmed-GetHit-B1");
+            StartCoroutine(RepositionFromHit());
         }
     }
 
@@ -180,18 +337,8 @@ public class Player : MonoBehaviour
         rb.AddForce(-transform.forward * 10000, ForceMode.Impulse);
 
         currentHealth -= dmg; 
-        healthBar.UpdateBar(currentHealth, maxhealth);
-        if(currentHealth <= 0)
-        {
-            //anim.enabled = false;
-            anim.Play("Unarmed-Death1");
-            GameManager.instance.setGameOver();
-        }
-        else
-        {
-            anim.Play("Unarmed-GetHit-B1");
-            StartCoroutine(RepositionFromHit());
-        }
+        healthBar.UpdateBar(currentHealth, character.MaxHP);
+        reactToCurrentHP();
     }
 
     IEnumerator RepositionFromHit()

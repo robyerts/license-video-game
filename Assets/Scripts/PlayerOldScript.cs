@@ -11,7 +11,7 @@ public class PlayerOldScript : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
         //Time.timeScale = 0.5f;
     }
 	
@@ -24,7 +24,7 @@ public class PlayerOldScript : MonoBehaviour {
         Debug.Log(c.gameObject.tag + " - inside Player OnCollisionEnter");
         if (c.gameObject.tag == "BruteWarriorFist" || c.gameObject.tag == "Firebolt")
         {
-            anim.Play("Unarmed-GetHit-B1");
+            //anim.Play("Unarmed-GetHit-B1");
             //anim.SetTrigger("gotHit");
         }
     }
