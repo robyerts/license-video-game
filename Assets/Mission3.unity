@@ -197,7 +197,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1977989895}
-  - {fileID: 478123977}
   - {fileID: 257907275}
   - {fileID: 657167681}
   - {fileID: 2069768300}
@@ -1322,7 +1321,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 10763435}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: -180.333, z: 0}
 --- !u!1001 &157608718
 Prefab:
@@ -2201,7 +2200,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 10763435}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &246954425
 GameObject:
@@ -2382,7 +2381,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 10763435}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &277617005
 Prefab:
@@ -3931,80 +3930,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 470548458}
---- !u!1001 &478123976
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 10763435}
-    m_Modifications:
-    - target: {fileID: 412958, guid: 50daa816369323b42b56093bb108296f, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -0.009994507
-      objectReference: {fileID: 0}
-    - target: {fileID: 412958, guid: 50daa816369323b42b56093bb108296f, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 1.98
-      objectReference: {fileID: 0}
-    - target: {fileID: 412958, guid: 50daa816369323b42b56093bb108296f, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -8.660004
-      objectReference: {fileID: 0}
-    - target: {fileID: 412958, guid: 50daa816369323b42b56093bb108296f, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 412958, guid: 50daa816369323b42b56093bb108296f, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 412958, guid: 50daa816369323b42b56093bb108296f, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 412958, guid: 50daa816369323b42b56093bb108296f, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: -0.00000020861623
-      objectReference: {fileID: 0}
-    - target: {fileID: 412958, guid: 50daa816369323b42b56093bb108296f, type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 412958, guid: 50daa816369323b42b56093bb108296f, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -179.99998
-      objectReference: {fileID: 0}
-    - target: {fileID: 163286, guid: 50daa816369323b42b56093bb108296f, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 19891030, guid: 50daa816369323b42b56093bb108296f, type: 2}
-      propertyPath: InitialModule.startSizeY.minMaxState
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 19891030, guid: 50daa816369323b42b56093bb108296f, type: 2}
-      propertyPath: InitialModule.startSizeZ.minMaxState
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 19891030, guid: 50daa816369323b42b56093bb108296f, type: 2}
-      propertyPath: InitialModule.startRotationX.minMaxState
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 19891030, guid: 50daa816369323b42b56093bb108296f, type: 2}
-      propertyPath: InitialModule.startRotationY.minMaxState
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 163286, guid: 50daa816369323b42b56093bb108296f, type: 2}
-      propertyPath: m_Name
-      value: Flamethrower
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 50daa816369323b42b56093bb108296f, type: 2}
-  m_IsPrefabParent: 0
---- !u!4 &478123977 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 412958, guid: 50daa816369323b42b56093bb108296f, type: 2}
-  m_PrefabInternal: {fileID: 478123976}
 --- !u!1 &478146150
 GameObject:
   m_ObjectHideFlags: 0
@@ -5464,7 +5389,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 10763435}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &680023277
 GameObject:
@@ -9584,7 +9509,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 10763435}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1100850623
 MonoBehaviour:
@@ -10029,7 +9954,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 10763435}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: -179.99998, z: 0}
 --- !u!1 &1181749911
 GameObject:
@@ -12351,7 +12276,7 @@ Transform:
   - {fileID: 999937454}
   - {fileID: 1510217864}
   m_Father: {fileID: 10763435}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: -198.50699, z: 0}
 --- !u!54 &1447233291
 Rigidbody:
@@ -15194,7 +15119,7 @@ Transform:
   - {fileID: 1521311241}
   - {fileID: 743342923}
   m_Father: {fileID: 10763435}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: -180.00002, z: 0}
 --- !u!195 &1725124148
 NavMeshAgent:
@@ -17326,7 +17251,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: b1cc94d26cd016d479aa5b522d88da0a, type: 2}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 9592804, guid: b1cc94d26cd016d479aa5b522d88da0a, type: 2}
       propertyPath: m_Controller
@@ -17403,30 +17328,6 @@ MonoBehaviour:
   nameLabel: {fileID: 1493879464}
   healthBar: {fileID: 2104602034}
   manaBar: {fileID: 2104602033}
-  abilitiesAnimNames:
-  - Unarmed-Attack-R3
-  - Unarmed-Attack-Kick-L1
-  - Unarmed-Attack-Kick-R1
-  - Unarmed-Attack-L3
-  abilitiesNames:
-  - rightie
-  - left kick
-  - right kick
-  - leftie
-  abilitiesAttackRanges:
-  - 2.5
-  - 2.8
-  - 2.8
-  - 2.5
-  abilitiesManaCosts: 000000000f000000120000000f000000
-  abilitiesDmg: 0a000000140000001e00000028000000
-  abilitiesIcons:
-  - {fileID: 21300000, guid: 9fa41dbd225aa6b44901203337d675b1, type: 3}
-  - {fileID: 21300000, guid: a2d76e7d7dbf9e94cb7fb63c0849380f, type: 3}
-  - {fileID: 21300000, guid: 39c1d85dbf547a94c970ffca09be89fd, type: 3}
-  - {fileID: 21300000, guid: ef0f32a70f6b7444abbb5309d9082399, type: 3}
-  abilitiesXpCosts: 00000000000000004b00000055000000
-  maxNrAbilitiesUI: 4
   RPGCharUI: {fileID: 253785279}
 --- !u!195 &2002730710
 NavMeshAgent:
@@ -17933,7 +17834,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 10763435}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2070770372
 GameObject:
@@ -18740,7 +18641,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 10763435}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: -180.00002, z: 0}
 --- !u!1001 &2136014830
 Prefab:

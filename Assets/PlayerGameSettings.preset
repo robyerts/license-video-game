@@ -1,0 +1,158 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!181963792 &2655988077585873504
+Preset:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: PlayerGameSettings
+  m_TargetType:
+    m_NativeTypeID: 114
+    m_ManagedTypePPtr: {fileID: 11500000, guid: 9b7974a345c865a498824be5dad23e34,
+      type: 3}
+    m_ManagedTypeFallback: 
+  m_Properties:
+  - target: {fileID: 0}
+    propertyPath: m_Enabled
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorHideFlags
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_Name
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorClassIdentifier
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: abilitiesAnimNames.Array.size
+    value: 4
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: abilitiesAnimNames.Array.data[0]
+    value: Unarmed-Attack-L3
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: abilitiesAnimNames.Array.data[1]
+    value: Unarmed-Attack-R3
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: abilitiesAnimNames.Array.data[2]
+    value: Unarmed-Attack-Kick-L1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: abilitiesAnimNames.Array.data[3]
+    value: Unarmed-Attack-Kick-R1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: abilitiesNames.Array.size
+    value: 4
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: abilitiesNames.Array.data[0]
+    value: leftie
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: abilitiesNames.Array.data[1]
+    value: rightie
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: abilitiesNames.Array.data[2]
+    value: left kick
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: abilitiesNames.Array.data[3]
+    value: right kick
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: abilitiesAttackRanges.Array.size
+    value: 4
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: abilitiesAttackRanges.Array.data[0]
+    value: 2.5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: abilitiesAttackRanges.Array.data[1]
+    value: 2.5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: abilitiesAttackRanges.Array.data[2]
+    value: 2.8
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: abilitiesAttackRanges.Array.data[3]
+    value: 2.8
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: abilitiesManaCosts.Array.size
+    value: 4
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: abilitiesManaCosts.Array.data[0]
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: abilitiesManaCosts.Array.data[1]
+    value: 10
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: abilitiesManaCosts.Array.data[2]
+    value: 15
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: abilitiesManaCosts.Array.data[3]
+    value: 18
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: abilitiesDmg.Array.size
+    value: 4
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: abilitiesDmg.Array.data[0]
+    value: 10
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: abilitiesDmg.Array.data[1]
+    value: 15
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: abilitiesDmg.Array.data[2]
+    value: 20
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: abilitiesDmg.Array.data[3]
+    value: 25
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: abilitiesIcons.Array.size
+    value: 4
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: abilitiesIcons.Array.data[0]
+    value: 
+    objectReference: {fileID: 21300000, guid: 9fa41dbd225aa6b44901203337d675b1, type: 3}
+  - target: {fileID: 0}
+    propertyPath: abilitiesIcons.Array.data[1]
+    value: 
+    objectReference: {fileID: 21300000, guid: 41e56038f505d704d9d04d6a31c3f217, type: 3}
+  - target: {fileID: 0}
+    propertyPath: abilitiesIcons.Array.data[2]
+    value: 
+    objectReference: {fileID: 21300000, guid: ef0f32a70f6b7444abbb5309d9082399, type: 3}
+  - target: {fileID: 0}
+    propertyPath: abilitiesIcons.Array.data[3]
+    value: 
+    objectReference: {fileID: 21300000, guid: a2d76e7d7dbf9e94cb7fb63c0849380f, type: 3}
+  - target: {fileID: 0}
+    propertyPath: abilitiesXpCosts.Array.size
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: maxNrAbilitiesInBattle
+    value: 4
+    objectReference: {fileID: 0}

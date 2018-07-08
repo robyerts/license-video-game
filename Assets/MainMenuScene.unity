@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5627,13 +5627,13 @@ MonoBehaviour:
   - 2.5
   - 2.8
   - 2.8
-  abilitiesManaCosts: 000000000a0000001400000014000000
-  abilitiesDmg: 0a0000000f000000190000001e000000
+  abilitiesManaCosts: 000000000a0000000f00000012000000
+  abilitiesDmg: 0a0000000f0000001400000019000000
   abilitiesIcons:
   - {fileID: 21300000, guid: 9fa41dbd225aa6b44901203337d675b1, type: 3}
+  - {fileID: 21300000, guid: 41e56038f505d704d9d04d6a31c3f217, type: 3}
   - {fileID: 21300000, guid: ef0f32a70f6b7444abbb5309d9082399, type: 3}
   - {fileID: 21300000, guid: a2d76e7d7dbf9e94cb7fb63c0849380f, type: 3}
-  - {fileID: 21300000, guid: 39c1d85dbf547a94c970ffca09be89fd, type: 3}
   abilitiesXpCosts: 
   maxNrAbilitiesInBattle: 4
 --- !u!4 &1807011681

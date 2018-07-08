@@ -9,7 +9,7 @@ public class PlayerGameSettings : MonoBehaviour {
     public List<string> abilitiesNames;
     public List<float> abilitiesAttackRanges;
     public List<int> abilitiesManaCosts;
-    public List<int> abilitiesDmg;
+    public List<int> abilitiesDmg; // idk if used
     public List<Sprite> abilitiesIcons;
     public List<int> abilitiesXpCosts; // currently not used
 
