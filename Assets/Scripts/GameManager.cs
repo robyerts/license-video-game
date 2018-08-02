@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
+
     [SerializeField] private GameObject player;
     [SerializeField] private Button endGameBtn;
     [SerializeField] private GameObject upgradePanel;
@@ -15,10 +16,10 @@ public class GameManager : MonoBehaviour
     private int indexCurrentAttackingEnemy = -1;
     public bool gameOver = false;
 
-    public List<string> enemyProjectilesTags;
-    public List<int> enemyProjectilesDmg;
+    public List<string> enemyProjectilesTags;// should move them to PlayerGameSettings probably
+    public List<int> enemyProjectilesDmg;   //
     public bool enemyFinishedAttack = true;
-    public bool enemiesAttacksStarted;
+    public bool enemiesAttacksOnGoing;
     public bool missionSucceeded = false;
 
     public int newAbilityIndex = -1;
@@ -41,12 +42,22 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        player.GetComponent<Player>().currentEnemy = enemies[0];
+        MeleePlayer mlPlayer = player.GetComponent<MeleePlayer>();
+        MagePlayer magePlayer = player.GetComponent<MagePlayer>();
+
+        if (mlPlayer)
+        {
+            mlPlayer.currentEnemy = enemies[0];
+        } else
+        {
+            magePlayer.currentEnemy = enemies[0];
+        }
+        
     }
 
     void Update()
     {
-        if (enemiesAttacksStarted)
+        if (enemiesAttacksOnGoing)
         {
             if (enemyFinishedAttack)
             {
@@ -55,7 +66,7 @@ public class GameManager : MonoBehaviour
                 {
                     GameObject enemy = enemies[indexCurrentAttackingEnemy];
                     MeleeEnemy meleeEnemy = enemy.GetComponent<MeleeEnemy>();
-                    RangedEnemy mageEnemy = enemy.GetComponent<RangedEnemy>();
+                    MageEnemy mageEnemy = enemy.GetComponent<MageEnemy>();
                     enemyFinishedAttack = false;
                     if (meleeEnemy != null)
                     {
@@ -68,7 +79,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    enemiesAttacksStarted = false;
+                    enemiesAttacksOnGoing = false;
                     indexCurrentAttackingEnemy = -1;
                     if(!gameOver && enemies.Count != 0)
                         DeativateGrayButtons();
@@ -105,22 +116,23 @@ public class GameManager : MonoBehaviour
             ActivateGrayButtons();
             return;
         }
-        Player playerScript = player.GetComponent<Player>();
+        MeleePlayer playerScript = player.GetComponent<MeleePlayer>();
         if (playerScript.currentEnemy == deadEnemy)
         {
             playerScript.currentEnemy = enemies[0];
+            playerScript.currentEnemyTransform = enemies[0].transform;
         }
     }
     public void enableUpgradeMenu()
     {
-        int missionsCompleted = player.GetComponent<Player>().Character.MissionsCompleted;
-        if (player.GetComponent<Player>().Character.MissionsCompleted < missionNumber)
+        int missionsCompleted = player.GetComponent<MeleePlayer>().CharInfo.MissionsCompleted;
+        if (player.GetComponent<MeleePlayer>().CharInfo.MissionsCompleted < missionNumber)
         {
             Transform upgradeAbilityTr = upgradePanel.transform.Find("Ability");
-            upgradeAbilityTr.Find("NewAbilityImg").gameObject.GetComponent<Image>().sprite = player.GetComponent<Player>().AbilitiesIcons[newAbilityIndex];
-            upgradeAbilityTr.Find("NewAbilityName").gameObject.GetComponent<Text>().text = player.GetComponent<Player>().AbilitiesNames[newAbilityIndex];
-            upgradeAbilityTr.Find("ManaCost").gameObject.GetComponent<Text>().text = player.GetComponent<Player>().AbilitiesManaCosts[newAbilityIndex].ToString();
-            upgradeAbilityTr.Find("Dmg").gameObject.GetComponent<Text>().text = player.GetComponent<Player>().AbilitiesDmg[newAbilityIndex].ToString();
+            upgradeAbilityTr.Find("NewAbilityImg").GetComponent<Image>().sprite = player.GetComponent<MeleePlayer>().AbilitiesIcons[newAbilityIndex];
+            upgradeAbilityTr.Find("NewAbilityName").GetComponent<Text>().text = player.GetComponent<MeleePlayer>().AbilitiesNames[newAbilityIndex];
+            upgradeAbilityTr.Find("ManaCost").GetComponent<Text>().text = player.GetComponent<MeleePlayer>().AbilitiesManaCosts[newAbilityIndex].ToString();
+            upgradeAbilityTr.Find("Dmg").GetComponent<Text>().text = player.GetComponent<MeleePlayer>().AbilitiesDmg[newAbilityIndex].ToString();
 
             Transform increaseHPTr = upgradePanel.transform.Find("HP");
             increaseHPTr.Find("Amount").GetComponent<Text>().text = "+" + increseHPBy.ToString();
@@ -150,7 +162,7 @@ public class GameManager : MonoBehaviour
         //0 - ability
         //1 - HP
         //2 - Manass
-        Character character = player.GetComponent<Player>().Character;
+        PlayerCharInfo character = player.GetComponent<MeleePlayer>().CharInfo;
         switch (choice)
         {
             case 0:
@@ -165,7 +177,7 @@ public class GameManager : MonoBehaviour
         }
         character.MissionsCompleted++;
         character.Save();
-        SceneLoader.instance.Character = character;
+        PlayerGameSettings.instance.CharInfo = character; // it is not the same instance? - GetComponent<Player>().Character doesn't return the same instance?
         loadMenuScene();
     }
     public void loadMenuScene()

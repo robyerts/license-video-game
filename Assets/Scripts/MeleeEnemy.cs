@@ -21,8 +21,8 @@ public class MeleeEnemy : MonoBehaviour
     private bool isRepositioningFromHit;
     private bool isDead;
 
-    [SerializeField] private int maxhealth = 60;
-    private int currenthealth;
+    [SerializeField] private int maxHealth = 60;
+    private int currentHealth;
 
     [SerializeField] private SimpleHealthBar healthBar;
 
@@ -42,8 +42,8 @@ public class MeleeEnemy : MonoBehaviour
         isRepositioningFromHit = false;
         isDead = false;
 
-        currenthealth = maxhealth;
-        healthBar.UpdateBar(currenthealth, maxhealth);
+        currentHealth = maxHealth;
+        healthBar.UpdateBar(currentHealth, maxHealth);
 
     }
 
@@ -112,6 +112,7 @@ public class MeleeEnemy : MonoBehaviour
             anim.SetBool("isRunning", false);
             navMeshAgent.isStopped = true;
             isRepositioningFromHit = false;
+            GameManager.instance.enemiesAttacksOnGoing = true;
         }
         if (isDead)
         {
@@ -125,16 +126,27 @@ public class MeleeEnemy : MonoBehaviour
         hasToRotateBackwards = true;
         isAtacking = false;
     }
-
-    public void GetHit(int dmg)
+    void OnCollisionEnter(Collision c)
     {
+        Debug.Log(c.gameObject.tag + " - inside Brute Warrior OnCollisionEnter");
+        int projectileIndex = GameManager.instance.enemyProjectilesTags.FindIndex(proj => proj.CompareTo(c.gameObject.tag) == 0);
+        if (projectileIndex != -1)
+        {
+            currentHealth -= GameManager.instance.enemyProjectilesDmg[projectileIndex];
+            healthBar.UpdateBar(currentHealth, maxHealth);
+            StartCoroutine(RepositionFromHit());
+        }
+    }
+    public void GetHit(int dmg, int force)
+    {
+        //Time.timeScale = 2;
         Debug.Log("Inside Brute Warrior GetHit");
-        rb.AddForce(-transform.forward * 8000, ForceMode.Impulse);
+        rb.AddForce(-transform.forward * force, ForceMode.Impulse);
 
-        currenthealth -= dmg;
-        healthBar.UpdateBar(currenthealth, maxhealth);
+        currentHealth -= dmg;
+        healthBar.UpdateBar(currentHealth, maxHealth);
 
-        if (currenthealth <= 0)
+        if (currentHealth <= 0)
         {
             anim.enabled = false;
             GameManager.instance.RemoveDeadEnemy(this.gameObject);
@@ -167,6 +179,6 @@ public class MeleeEnemy : MonoBehaviour
 
     public void Hit(int dmg)
     {
-        player.GetComponent<Player>().GetHit(dmg);
+        player.GetComponent<MagePlayer>().GetHit(dmg);
     }
 }

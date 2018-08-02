@@ -51,7 +51,7 @@ public class MenuManager : MonoBehaviour {
         {
             if (!isSlotEmpty(index))
             {
-                Character character = new Character(index);
+                PlayerCharInfo character = new PlayerCharInfo(index);
                 character.Load();
                 populateCharSlot(character);
             }
@@ -70,7 +70,7 @@ public class MenuManager : MonoBehaviour {
         }
     }
 
-    public void populateCharSlot(Character character)
+    public void populateCharSlot(PlayerCharInfo character)
     {
         int index = character.Index;
         Text name = characterSlots[index].transform.Find("CharName").gameObject.GetComponent<Text>();
@@ -95,10 +95,11 @@ public class MenuManager : MonoBehaviour {
             return;
             //error window
         }
-        Character character = new Character(indexAvailableSlot, charName.text);
+        PlayerCharInfo character = new PlayerCharInfo(indexAvailableSlot, charName.text, CharacterType.MeleeCharacter);
         character.Save();
-        SceneLoader.instance.Character = character;
-   
+        //SceneLoader.instance.Character = character;
+        PlayerGameSettings.instance.CharInfo = character;
+
         PlayerPrefs.SetInt("nrChars", PlayerPrefs.GetInt("nrChars", 0) + 1);
         disableCharsPanel();
     }
@@ -126,9 +127,10 @@ public class MenuManager : MonoBehaviour {
         return false;
     }
 
+    //TB later removed
     private void modifyCharTest()
     {
-        Character character = new Character(0, "fufu");
+        PlayerCharInfo character = new PlayerCharInfo(0, "fufu", CharacterType.MeleeCharacter);
         character.MaxHP = 120;
         character.MaxMana = 130;
         character.Save();
@@ -136,8 +138,8 @@ public class MenuManager : MonoBehaviour {
 
     public void deleteCharacter(int index)
     {
-        //ask confirmation window
-        Character character = new Character(index);
+        //ask confirmation windows
+        PlayerCharInfo character = new PlayerCharInfo(index);
         character.Delete();
         emptySlotLabels[index].gameObject.SetActive(true);
         characterSlots[index].SetActive(false);
@@ -145,9 +147,9 @@ public class MenuManager : MonoBehaviour {
 
     public void loadCharacter(int index)
     {
-        Character character = new Character(index);
+        PlayerCharInfo character = new PlayerCharInfo(index);
         character.Load();
-        SceneLoader.instance.Character = character;
+        PlayerGameSettings.instance.CharInfo = character;
         disableCharsPanel();
     }
 

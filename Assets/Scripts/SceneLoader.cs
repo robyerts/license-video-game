@@ -5,20 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour {
     public static SceneLoader instance = null;
-    private Character character;
-
-    public Character Character
-    {
-        get
-        {
-            return character;
-        }
-
-        set
-        {
-            character = value;
-        }
-    }
 
     // Use this for initialization
     void Start () {

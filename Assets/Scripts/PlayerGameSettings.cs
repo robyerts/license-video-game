@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Assertions;
 using UnityEngine;
 
 public class PlayerGameSettings : MonoBehaviour {
@@ -9,23 +10,23 @@ public class PlayerGameSettings : MonoBehaviour {
     public List<string> abilitiesNames;
     public List<float> abilitiesAttackRanges;
     public List<int> abilitiesManaCosts;
-    public List<int> abilitiesDmg; // idk if used
+    public List<int> abilitiesDmg;
     public List<Sprite> abilitiesIcons;
     public List<int> abilitiesXpCosts; // currently not used
 
-    public int maxNrAbilitiesInBattle = 4;
+    public int maxNrAbilitiesInBattle = 4; // not sure how it affects changing this; maybe some for loops, since UI is not updated with this number
 
-    private Character character; //taken from scene loader
-    public Character Character  //--//--//
+    private PlayerCharInfo charInfo;
+    public PlayerCharInfo CharInfo 
     {
         get
         {
-            return character;
+            return charInfo;
         }
 
         set
         {
-            character = value;
+            charInfo = value;
         }
     }
 
@@ -40,6 +41,7 @@ public class PlayerGameSettings : MonoBehaviour {
             Destroy(this.gameObject);
         }
         DontDestroyOnLoad(gameObject);
+        
     }
 	
 	// Update is called once per frame
