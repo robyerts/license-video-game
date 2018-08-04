@@ -1,0 +1,226 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!181963792 &2655988077585873504
+Preset:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: MagePlayerGameData2
+  m_TargetType:
+    m_NativeTypeID: 114
+    m_ManagedTypePPtr: {fileID: 11500000, guid: 5d020fcf1d66da64f838cddc5d15fa45,
+      type: 3}
+    m_ManagedTypeFallback: 
+  m_Properties:
+  - target: {fileID: 0}
+    propertyPath: m_Enabled
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorHideFlags
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_Name
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorClassIdentifier
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesPrefabs.Array.size
+    value: 4
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesPrefabs.Array.data[0]
+    value: 
+    objectReference: {fileID: 100002, guid: f7efb0d9df2264096af57128df85dddb, type: 2}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesPrefabs.Array.data[1]
+    value: 
+    objectReference: {fileID: 100002, guid: c17698f595aa942cab4326f0ffaf25c2, type: 2}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesPrefabs.Array.data[2]
+    value: 
+    objectReference: {fileID: 112396, guid: b5ea624fac4bcb44f96ad51d3745727e, type: 2}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesPrefabs.Array.data[3]
+    value: 
+    objectReference: {fileID: 141530, guid: 369eee557c4d41c479225bf744fa6a5f, type: 2}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesAnimNames.Array.size
+    value: 4
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesAnimNames.Array.data[0]
+    value: 1hMagicAttack01
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesAnimNames.Array.data[1]
+    value: 1hMagicAttack02
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesAnimNames.Array.data[2]
+    value: healBuff
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesAnimNames.Array.data[3]
+    value: 2hMagicAttack02
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesNames.Array.size
+    value: 4
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesNames.Array.data[0]
+    value: lil spolosion
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesNames.Array.data[1]
+    value: purple electricity ball
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesNames.Array.data[2]
+    value: insta heal
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesNames.Array.data[3]
+    value: firebolt
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesManaCosts.Array.size
+    value: 4
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesManaCosts.Array.data[0]
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesManaCosts.Array.data[1]
+    value: 10
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesManaCosts.Array.data[2]
+    value: 15
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesManaCosts.Array.data[3]
+    value: 18
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesDmg.Array.size
+    value: 4
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesDmg.Array.data[0]
+    value: 10
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesDmg.Array.data[1]
+    value: 15
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesDmg.Array.data[2]
+    value: 15
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesDmg.Array.data[3]
+    value: 20
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesForces.Array.size
+    value: 4
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesForces.Array.data[0]
+    value: 6000
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesForces.Array.data[1]
+    value: 8000
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesForces.Array.data[2]
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesForces.Array.data[3]
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesIcons.Array.size
+    value: 4
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesIcons.Array.data[0]
+    value: 
+    objectReference: {fileID: 21300000, guid: 9fa41dbd225aa6b44901203337d675b1, type: 3}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesIcons.Array.data[1]
+    value: 
+    objectReference: {fileID: 21300000, guid: 41e56038f505d704d9d04d6a31c3f217, type: 3}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesIcons.Array.data[2]
+    value: 
+    objectReference: {fileID: 21300000, guid: ef0f32a70f6b7444abbb5309d9082399, type: 3}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesIcons.Array.data[3]
+    value: 
+    objectReference: {fileID: 21300000, guid: a2d76e7d7dbf9e94cb7fb63c0849380f, type: 3}
+  - target: {fileID: 0}
+    propertyPath: ProjectilesTags.Array.size
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: ProjectilesTags.Array.data[0]
+    value: Firebolt
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: ProjectilesDmgs.Array.size
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: ProjectilesDmgs.Array.data[0]
+    value: 20
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesTypes.Array.size
+    value: 4
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesTypes.Array.data[0]
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesTypes.Array.data[1]
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesTypes.Array.data[2]
+    value: 3
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesTypes.Array.data[3]
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesInstatiateTrTags.Array.size
+    value: 4
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesInstatiateTrTags.Array.data[0]
+    value: Abilities12InstatiatePos
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesInstatiateTrTags.Array.data[1]
+    value: Abilities12InstatiatePos
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesInstatiateTrTags.Array.data[2]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesInstatiateTrTags.Array.data[3]
+    value: 
+    objectReference: {fileID: 0}

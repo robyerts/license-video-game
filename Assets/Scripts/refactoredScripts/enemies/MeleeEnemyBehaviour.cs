@@ -3,20 +3,17 @@ using System.Collections;
 
 public class MeleeEnemyBehaviour : EnemyBehaviour
 {
-    public string AttackAnim = "Attack1"; // need to use array and randomizer as with mage but before playing anim
-                                            //use parametrized Hit for mage as here
-
     private Transform playerTransform;
     private bool isAtacking;
     private bool attackAnimPlayed;
     private bool hasToRotateBackwards;
     private bool isReturning;
-    private int attackNr;
 
     // Use this for initialization
     protected override void Start()
     {
         base.Start();
+        playerTransform = Player.transform;
         isAtacking = false;
         attackAnimPlayed = false;
         hasToRotateBackwards = false;
@@ -94,9 +91,9 @@ public class MeleeEnemyBehaviour : EnemyBehaviour
         attackNr = selectRandomAbilityIndex();
     }
 
-    public void Hit(int dmg)
+    public void Hit()
     {
-        Player.GetComponent<PlayerBehaviour>().GetHit(dmg);
+        Player.GetComponent<PlayerBehaviour>().GetHit(abilitiesPowers[attackNr]);
     }
 
     public void EndHit()

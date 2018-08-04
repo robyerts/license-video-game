@@ -9,7 +9,7 @@ public class BattleManager2 : MonoBehaviour
     public static BattleManager2 Instance = null;
 
     [SerializeField] private GameObject player; // remove player instance; use prefab to INSTANTIATE
-    private MagePlayer playerScript;
+    private PlayerBehaviour playerScript;
     [SerializeField] private Button endGameBtn;
     [SerializeField] private GameObject upgradePanel;
     [SerializeField] private List<Button> grayButtons; // use RPG-CharacterUI
@@ -43,18 +43,19 @@ public class BattleManager2 : MonoBehaviour
         EnemiesProjectileTags = new List<string>();
         EnemiesProjectileDmgs = new List<int>();
 
-        playerScript = player.GetComponent<MagePlayer>();
-        //REFACTOR using base-class
-        MeleePlayer mlPlayer = player.GetComponent<MeleePlayer>();
-        MagePlayer magePlayer = player.GetComponent<MagePlayer>();
+        playerScript = player.GetComponent<PlayerBehaviour>();
+        playerScript.currentEnemy = Enemies[0];
 
-        if (mlPlayer)
+        initializeEnemiesPlayerField();
+
+        populateEnemiesProjectiles();
+    }
+
+    private void initializeEnemiesPlayerField()
+    {
+        foreach(GameObject enemy in Enemies)
         {
-            mlPlayer.currentEnemy = Enemies[0];
-        }
-        else
-        {
-            magePlayer.currentEnemy = Enemies[0];
+            enemy.GetComponent<EnemyBehaviour>().Player = player;
         }
     }
     
@@ -81,17 +82,11 @@ public class BattleManager2 : MonoBehaviour
                 if (indexCurrentAttackingEnemy < Enemies.Count)
                 {
                     GameObject enemy = Enemies[indexCurrentAttackingEnemy];
-                    MeleeEnemy meleeEnemy = enemy.GetComponent<MeleeEnemy>();
-                    MageEnemy mageEnemy = enemy.GetComponent<MageEnemy>();
+                    EnemyBehaviour enemyScript = enemy.GetComponent<EnemyBehaviour>();
+                    
                     EnemyFinishedAttack = false;
-                    if (meleeEnemy != null)
-                    {
-                        meleeEnemy.StartBasicAttack();
-                    }
-                    else
-                    {
-                        mageEnemy.StartBasicAttack();
-                    }
+
+                    enemyScript.StartAttack();
                 }
                 else
                 {
@@ -132,7 +127,7 @@ public class BattleManager2 : MonoBehaviour
             ActivateGrayButtons();
             return;
         }
-        MagePlayer playerScript = player.GetComponent<MagePlayer>();
+        PlayerBehaviour playerScript = player.GetComponent<PlayerBehaviour>();
         if (playerScript.currentEnemy == deadEnemy)
         {
             playerScript.currentEnemy = Enemies[0];
@@ -141,8 +136,7 @@ public class BattleManager2 : MonoBehaviour
     }
     public void enableUpgradeMenu()
     {
-        MagePlayer playerScript = player.GetComponent<MagePlayer>();
-        int missionsCompleted = playerScript.CharInfo.MissionsCompleted;
+        int missionsCompleted = PlayerGameData2.Instance.CharInfo.MissionsCompleted;
 
         if (missionsCompleted < MissionNumber)
         {
@@ -176,22 +170,22 @@ public class BattleManager2 : MonoBehaviour
 
     private Sprite getAbilityIcon(int abilityIndex)
     {
-        return playerScript.AbilitiesIcons[abilityIndex];
+        return PlayerGameData2.Instance.AbilitiesIcons[abilityIndex];
     }
 
     private string getAbilityName(int abilityIndex)
     {
-        return playerScript.AbilitiesNames[abilityIndex];
+        return PlayerGameData2.Instance.AbilitiesNames[abilityIndex];
     }
 
     private int getAbilityManaCost(int abilityIndex)
     {
-        return playerScript.AbilitiesManaCosts[abilityIndex];
+        return PlayerGameData2.Instance.AbilitiesManaCosts[abilityIndex];
     }
 
     private int getAbilityDmg(int abilityIndex)
     {
-        return playerScript.AbilitiesDmg[abilityIndex];
+        return PlayerGameData2.Instance.AbilitiesDmg[abilityIndex];
     }
 
     public void setGameOver()
@@ -208,7 +202,7 @@ public class BattleManager2 : MonoBehaviour
         //0 - ability
         //1 - HP
         //2 - Manass
-        PlayerCharInfo character = player.GetComponent<MagePlayer>().CharInfo;
+        PlayerCharInfo character = PlayerGameData2.Instance.CharInfo;
         switch (choice)
         {
             case 0:

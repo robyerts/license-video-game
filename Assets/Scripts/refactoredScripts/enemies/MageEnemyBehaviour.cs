@@ -7,14 +7,14 @@ public class MageEnemyBehaviour : EnemyBehaviour {
     public List<GameObject> abilitiesPrefabs;
     public List<Transform> abilitiesInstatiateTr; // assuming there is only one player
     public List<MageAbilityInstantiateType> abilitiesTypes;
-    public List<int> abilitiesPowers; 
+    public List<float> abilitiesTimeBe4Attack;
+    public List<float> abilitiesTimeBe4Destroy;
 
     public List<string> ProjectilesTags;
     public List<int> ProjectilesDmgs; // double check if it's really nedeed or could use abilities dmg
                                       // needed to have in battle manager an array of projectiles
 
-    public string AnimName = "Attack1";
-    public new int MaxHealth = 40;   // new because im overriding the default value
+    public float delayAfterAbility = 0.5f;
 
     // Use this for initialization
     protected override void Start () {
@@ -48,35 +48,25 @@ public class MageEnemyBehaviour : EnemyBehaviour {
         }
     }
 
-    //public void EndHit()
-    //{
-    //    StartCoroutine(AttackCompleted());
-    //}
-
-    //IEnumerator AttackCompleted()
-    //{
-    //    yield return new WaitForSeconds(1); //hardcoded number -> expose it to the editor
-    //                                        // add an array with time to complete 
-    //    GameManager.instance.enemyFinishedAttack = true;
-    //}
-
     public void Hit() // assuming there is only one attack anim;
     {
-        int index = selectRandomAbilityIndex();
-        GameObject instatiatedAbility = Instantiate(abilitiesPrefabs[index], abilitiesInstatiateTr[index].position, abilitiesInstatiateTr[index].rotation);
+        GameObject instatiatedAbility = Instantiate(abilitiesPrefabs[attackNr], abilitiesInstatiateTr[attackNr].position, abilitiesInstatiateTr[attackNr].rotation);
 
-        switch (abilitiesTypes[index])
+        switch (abilitiesTypes[attackNr])
         {
             case MageAbilityInstantiateType.DmgIntantiateOnEnemy:
-                StartCoroutine(ProcessAbility(instatiatedAbility, abilitiesPowers[index], 1.2f, 2.1f, MageAbilityType.Dmg));
+                //for flamethrower: 1, 2.1
+                StartCoroutine(ProcessAbility(instatiatedAbility, abilitiesPowers[attackNr], abilitiesTimeBe4Attack[attackNr], abilitiesTimeBe4Destroy[attackNr], MageAbilityType.Dmg));
                 break;
 
             case MageAbilityInstantiateType.DmgProjectileWithCollider:
-                StartCoroutine(ProcessAbility(instatiatedAbility, 0, 0, 1.5f, MageAbilityType.NoAbility));
+                //for firebolt: 0(dmg is applied by the OnCollisionEnter function), 1.5
+                StartCoroutine(ProcessAbility(instatiatedAbility, 0, 0, abilitiesTimeBe4Destroy[attackNr], MageAbilityType.NoAbility));
                 break;
 
             case MageAbilityInstantiateType.HealingInstatiateOnSelf:
-                StartCoroutine(ProcessAbility(instatiatedAbility, abilitiesPowers[index], 1.2f, 2.1f, MageAbilityType.Healing));
+                //1.2, 2.1
+                StartCoroutine(ProcessAbility(instatiatedAbility, abilitiesPowers[attackNr], abilitiesTimeBe4Attack[attackNr], abilitiesTimeBe4Destroy[attackNr], MageAbilityType.Healing));
                 break;
         }
     }
@@ -120,7 +110,7 @@ public class MageEnemyBehaviour : EnemyBehaviour {
         }
 
         yield return DestroyWithDelay(instatiatedAbility, timeBe4Destroy - timeBe4Attack);
-        yield return new WaitForSeconds(1); // !! hardcoded number!!
+        yield return new WaitForSeconds(delayAfterAbility);
         BattleManager2.Instance.EnemyFinishedAttack = true;
     }
     #endregion
@@ -133,8 +123,7 @@ public class MageEnemyBehaviour : EnemyBehaviour {
             return;
         }
 
-        //implement usage for a list of anim names
-        //use randomization here for choosing anim
-        anim.Play(AnimName);
+        attackNr = selectRandomAbilityIndex();
+        anim.Play(abilitiesAnimNames[attackNr]);
     }
 }

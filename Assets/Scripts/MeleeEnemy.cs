@@ -103,7 +103,7 @@ public class MeleeEnemy : MonoBehaviour
             {
                 hasToRotateForwards = false;
                 attackAnimPlayed = false;
-                GameManager.instance.enemyFinishedAttack = true;
+                BattleManager2.Instance.EnemyFinishedAttack = true;
             }
             transform.rotation = Quaternion.LookRotation(newDir);
         }

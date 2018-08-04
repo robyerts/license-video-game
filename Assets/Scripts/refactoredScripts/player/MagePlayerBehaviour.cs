@@ -43,7 +43,7 @@ public class MagePlayerBehaviour : PlayerBehaviour
         anim.Play(abilitiesAnimNames[attackNr]);
     }
 
-    public override void Hit(int abilityPower)
+    public override void Hit()
     {
         GameObject instatiatedAbility;
         
@@ -52,7 +52,7 @@ public class MagePlayerBehaviour : PlayerBehaviour
             case MageAbilityInstantiateType.DmgIntantiateOnEnemy:
                 Transform enemyInstatiateTr = getChildWithTag(currentEnemy.transform, abilitiesInstatiateTrTags[attackNr]).transform;
                 instatiatedAbility = Instantiate(abilitiesPrefabs[attackNr], enemyInstatiateTr.position, enemyInstatiateTr.rotation);
-                StartCoroutine(ProcessAbility(instatiatedAbility, abilityPower, 1.2f, 2.1f, MageAbilityType.Dmg)); // hardcoded numbers and some bellow aswell
+                StartCoroutine(ProcessAbility(instatiatedAbility, abilitiesDmgs[attackNr], 1.2f, 2.1f, MageAbilityType.Dmg)); // hardcoded numbers and some bellow aswell
                 break;
 
             case MageAbilityInstantiateType.DmgProjectileWithCollider:
@@ -66,12 +66,12 @@ public class MagePlayerBehaviour : PlayerBehaviour
 
             case MageAbilityInstantiateType.HealingInstatiateOnSelf:
                 instatiatedAbility = Instantiate(abilitiesPrefabs[attackNr], abilitiesInstatiateTr[attackNr].position, abilitiesInstatiateTr[attackNr].rotation);
-                StartCoroutine(ProcessAbility(instatiatedAbility, abilityPower, 1.2f, 2.1f, MageAbilityType.Healing));
+                StartCoroutine(ProcessAbility(instatiatedAbility, abilitiesDmgs[attackNr], 1.2f, 2.1f, MageAbilityType.Healing));
                 break;
 
             case MageAbilityInstantiateType.DmgAOEInstatiateOnEnemies:
                 instatiatedAbility = Instantiate(abilitiesPrefabs[attackNr], abilitiesInstatiateTr[attackNr].position, abilitiesInstatiateTr[attackNr].rotation);
-                StartCoroutine(ProcessAbility(instatiatedAbility, abilityPower, 1.2f, 2.1f, MageAbilityType.AOEDmg));
+                StartCoroutine(ProcessAbility(instatiatedAbility, abilitiesDmgs[attackNr], 1.2f, 2.1f, MageAbilityType.AOEDmg));
                 break;
         }
     }

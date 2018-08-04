@@ -18,6 +18,7 @@ TagManager:
   - PlayerName
   - FireboltPlayer
   - FireboltEnemy
+  - Abilities12InstantiatePos
   layers:
   - Default
   - TransparentFX

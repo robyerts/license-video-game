@@ -52,7 +52,7 @@ public class SceneLoader : MonoBehaviour {
 
     IEnumerator LoadMainMenuSceneAfterCharSelected()
     {
-        yield return StartCoroutine(LoadSceneAsync("MainMenuScene"));
+        yield return StartCoroutine(LoadSceneAsync("MainMenuSceneRefactored"));
         MenuManager.instance.disableCharsPanel();
     }
 }

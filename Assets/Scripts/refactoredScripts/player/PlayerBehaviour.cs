@@ -18,13 +18,14 @@ public class PlayerBehaviour : CharacterBehaviour
     protected int attackNr = 0;
     protected int currentMana;
 
-    public List<GameObject> abilitiesPrefabs;
     public List<Transform> abilitiesInstatiateTr;
 
+    protected List<GameObject> abilitiesPrefabs;
     protected List<string> abilitiesAnimNames;
     protected List<string> abilitiesNames;
     protected List<int> abilitiesManaCosts;
     protected List<int> abilitiesDmgs;
+    protected List<int> abilitiesAttackForces;
     protected List<Sprite> abilitiesIcons;
     protected int maxNrAbilitiesUI = 4;
 
@@ -46,9 +47,12 @@ public class PlayerBehaviour : CharacterBehaviour
         healthBar.UpdateBar(currentHealth, currentHealth);
         manaBar.UpdateBar(currentMana, currentMana);
 
+        abilitiesPrefabs = PlayerGameData2.Instance.AbilitiesPrefabs;
         abilitiesAnimNames = PlayerGameData2.Instance.AbilitiesAnimNames;
         abilitiesNames = PlayerGameData2.Instance.AbilitiesNames;
         abilitiesDmgs = PlayerGameData2.Instance.AbilitiesDmg;
+        abilitiesAttackForces = PlayerGameData2.Instance.AbilitiesForces;
+        
         abilitiesIcons = PlayerGameData2.Instance.AbilitiesIcons;
         abilitiesManaCosts = PlayerGameData2.Instance.AbilitiesManaCosts;
         maxNrAbilitiesUI = GameSettings2.MaxNrAbilitiesInBattle;
@@ -97,7 +101,7 @@ public class PlayerBehaviour : CharacterBehaviour
 
     }
 
-    public virtual void Hit(int dmg)
+    public virtual void Hit()
     {
 
     }

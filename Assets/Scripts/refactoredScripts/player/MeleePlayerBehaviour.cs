@@ -4,8 +4,7 @@ using System.Collections.Generic;
 
 public class MeleePlayerBehaviour : PlayerBehaviour
 {
-    public List<float> abilitiesAttackRanges;
-    public List<int> abilitiesAttackForces;
+    private List<float> abilitiesAttackRanges;
 
     private bool attackAnimPlayed;
     private bool hasToRotateBackwards;
@@ -103,10 +102,11 @@ public class MeleePlayerBehaviour : PlayerBehaviour
         navMeshAgent.SetDestination(currentEnemyTransform.position);
     }
 
-    public override void Hit(int dmg)
+    // parameter probably not needed since can there is a list for it
+    public override void Hit()
     {
         EnemyBehaviour enemyScript = currentEnemy.GetComponent<EnemyBehaviour>();
-        enemyScript.GetHit(dmg, abilitiesAttackForces[attackNr]);
+        enemyScript.GetHit(abilitiesDmgs[attackNr], abilitiesAttackForces[attackNr]);
       
     }
 

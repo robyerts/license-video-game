@@ -8,8 +8,10 @@ public class EnemyBehaviour : CharacterBehaviour {
 
     public List<int> abilitiesProbabilities;
     public List<string> abilitiesAnimNames;
+    public List<int> abilitiesPowers;
 
     protected bool isDead;
+    protected int attackNr;
 
     private System.Random randomGenerator;
     private int sumProbabilities;
@@ -44,7 +46,7 @@ public class EnemyBehaviour : CharacterBehaviour {
 
     protected int selectRandomAbilityIndex()
     {
-        int selectedNr = randomGenerator.Next(0, sumProbabilities);
+        int selectedNr = randomGenerator.Next(1, sumProbabilities);
         int sum = 0;
         int index = 0;
 
@@ -53,7 +55,7 @@ public class EnemyBehaviour : CharacterBehaviour {
             sum += abilitiesProbabilities[index++];
         }
 
-        return index;
+        return index - 1;
     }
 
     public void GetHit(int dmg, int force)

@@ -1,5 +1,5 @@
 ﻿public enum CharacterType
 {
-    MeleeCharacter,
-    RangedCharacter
+    MeleeCharacter = 1,
+    RangedCharacter = 0
 }

@@ -12,25 +12,27 @@ public class PlayerGameData2 : MonoBehaviour
     public List<string> AbilitiesNames;
     public List<int> AbilitiesManaCosts;
     public List<int> AbilitiesDmg;  //try using AnimationClip.events because dmgs are set there aswell but only for Melee Player?
+    public List<int> AbilitiesForces;
     public List<Sprite> AbilitiesIcons;
 
-    private PlayerCharInfo charInfo;
-
-    public PlayerCharInfo CharInfo
-    {
-        get
-        {
-            return charInfo;
-        }
-
-        set
-        {
-            charInfo = value;
-        }
-    }
+    public PlayerCharInfo CharInfo;
 
     // Use this for initialization
-    void Start()
+    protected virtual void Start()
+    {
+        //if (Instance == null)
+        //{
+        //    Instance = this;
+        //}
+        //else if (Instance != this)
+        //{
+        //    Destroy(this.gameObject);
+        //}
+        //DontDestroyOnLoad(gameObject);
+
+    }
+
+    protected virtual void OnEnable()
     {
         if (Instance == null)
         {
@@ -41,7 +43,11 @@ public class PlayerGameData2 : MonoBehaviour
             Destroy(this.gameObject);
         }
         DontDestroyOnLoad(gameObject);
+    }
 
+    protected virtual void OnDisable()
+    {
+        Instance = null;
     }
 
     // Update is called once per frame
@@ -49,4 +55,8 @@ public class PlayerGameData2 : MonoBehaviour
     {
 
     }
+    //public void DestroyItself()
+    //{
+    //    Destroy(this.gameObject);
+    //}
 }

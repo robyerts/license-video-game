@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2620,7 +2620,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Mission2
+          m_StringArgument: Mission1SorceressRefactored2
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -3766,7 +3766,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Mission111
+          m_StringArgument: Mission1MeleeRefactored
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -5805,8 +5805,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1807011681}
-  - component: {fileID: 1807011682}
   - component: {fileID: 1807011680}
+  - component: {fileID: 1807011682}
   m_Layer: 0
   m_Name: PlayerGameData
   m_TagString: Untagged
@@ -5820,18 +5820,35 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1807011679}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac2d9f10cf52b374aa89d600f6d8485d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   AbilitiesPrefabs: []
-  AbilitiesAnimNames: []
-  AbilitiesNames: []
-  AbilitiesManaCosts: 
-  AbilitiesDmg: 
-  AbilitiesIcons: []
-  AbilitiesAttackRanges: []
+  AbilitiesAnimNames:
+  - Unarmed-Attack-L3
+  - Unarmed-Attack-R3
+  - Unarmed-Attack-Kick-L1
+  - Unarmed-Attack-Kick-R1
+  AbilitiesNames:
+  - leftie
+  - rightie
+  - left kick
+  - right kick
+  AbilitiesManaCosts: 000000000a0000000f00000012000000
+  AbilitiesDmg: 0a0000000f0000001400000019000000
+  AbilitiesForces: 70170000581b0000401f000028230000
+  AbilitiesIcons:
+  - {fileID: 21300000, guid: 9fa41dbd225aa6b44901203337d675b1, type: 3}
+  - {fileID: 21300000, guid: 41e56038f505d704d9d04d6a31c3f217, type: 3}
+  - {fileID: 21300000, guid: ef0f32a70f6b7444abbb5309d9082399, type: 3}
+  - {fileID: 21300000, guid: a2d76e7d7dbf9e94cb7fb63c0849380f, type: 3}
+  AbilitiesAttackRanges:
+  - 2.5
+  - 2.5
+  - 2.8
+  - 2.8
 --- !u!4 &1807011681
 Transform:
   m_ObjectHideFlags: 0
@@ -5851,21 +5868,43 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1807011679}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d020fcf1d66da64f838cddc5d15fa45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AbilitiesPrefabs: []
-  AbilitiesAnimNames: []
-  AbilitiesNames: []
-  AbilitiesManaCosts: 
-  AbilitiesDmg: 
-  AbilitiesIcons: []
-  ProjectilesTags: []
-  ProjectilesDmgs: 
-  AbilitiesTypes: 
-  AbilitiesInstatiateTrTags: []
+  AbilitiesPrefabs:
+  - {fileID: 100002, guid: f7efb0d9df2264096af57128df85dddb, type: 2}
+  - {fileID: 100002, guid: c17698f595aa942cab4326f0ffaf25c2, type: 2}
+  - {fileID: 112396, guid: b5ea624fac4bcb44f96ad51d3745727e, type: 2}
+  - {fileID: 141530, guid: 369eee557c4d41c479225bf744fa6a5f, type: 2}
+  AbilitiesAnimNames:
+  - 1hMagicAttack01
+  - 1hMagicAttack02
+  - healBuff
+  - 2hMagicAttack02
+  AbilitiesNames:
+  - lil spolosion
+  - purple electricity ball
+  - insta heal
+  - firebolt
+  AbilitiesManaCosts: 000000000a0000000f00000012000000
+  AbilitiesDmg: 0a0000003c0000000f00000014000000
+  AbilitiesForces: 70170000401f00000000000000000000
+  AbilitiesIcons:
+  - {fileID: 21300000, guid: 9fa41dbd225aa6b44901203337d675b1, type: 3}
+  - {fileID: 21300000, guid: 41e56038f505d704d9d04d6a31c3f217, type: 3}
+  - {fileID: 21300000, guid: ef0f32a70f6b7444abbb5309d9082399, type: 3}
+  - {fileID: 21300000, guid: a2d76e7d7dbf9e94cb7fb63c0849380f, type: 3}
+  ProjectilesTags:
+  - Firebolt
+  ProjectilesDmgs: 14000000
+  AbilitiesTypes: 01000000010000000300000000000000
+  AbilitiesInstatiateTrTags:
+  - Abilities12InstantiatePos
+  - Abilities12InstantiatePos
+  - 
+  - 
 --- !u!1 &1834515256
 GameObject:
   m_ObjectHideFlags: 0

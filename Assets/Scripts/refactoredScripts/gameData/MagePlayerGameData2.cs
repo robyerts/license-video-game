@@ -13,17 +13,15 @@ public class MagePlayerGameData2 : PlayerGameData2
     public List<MageAbilityInstantiateType> AbilitiesTypes;
     public List<string> AbilitiesInstatiateTrTags;
 
-    void Start()
+    protected override void Start()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else if (Instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-        DontDestroyOnLoad(gameObject);
+        //base.Start();
+        //Instance = this;
+    }
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        Instance = this;
     }
 }

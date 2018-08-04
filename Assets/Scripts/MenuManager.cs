@@ -14,6 +14,7 @@ public class MenuManager : MonoBehaviour {
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private List<Text> emptySlotLabels;
     [SerializeField] private List<GameObject> characterSlots;
+    [SerializeField] private GameObject playerGameDataObj;
 
     private static int maxNrChars = 4;
 
@@ -98,7 +99,7 @@ public class MenuManager : MonoBehaviour {
         PlayerCharInfo character = new PlayerCharInfo(indexAvailableSlot, charName.text, CharacterType.MeleeCharacter);
         character.Save();
         //SceneLoader.instance.Character = character;
-        PlayerGameSettings.instance.CharInfo = character;
+        PlayerGameData2.Instance.CharInfo = character;
 
         PlayerPrefs.SetInt("nrChars", PlayerPrefs.GetInt("nrChars", 0) + 1);
         disableCharsPanel();
@@ -148,8 +149,21 @@ public class MenuManager : MonoBehaviour {
     public void loadCharacter(int index)
     {
         PlayerCharInfo character = new PlayerCharInfo(index);
+        Debug.Log("character type - loadCharacter function: " + character.CharType.ToString());
         character.Load();
-        PlayerGameSettings.instance.CharInfo = character;
+        //tb removed
+        character.CharType = CharacterType.RangedCharacter;
+        character.Save();
+        
+        if(character.CharType == CharacterType.MeleeCharacter)
+        {
+            playerGameDataObj.GetComponent<MeleePlayerGameData2>().enabled = true;
+        } else
+        {
+            playerGameDataObj.GetComponent<MagePlayerGameData2>().enabled = true;
+        }
+
+        PlayerGameData2.Instance.CharInfo = character;
         disableCharsPanel();
     }
 

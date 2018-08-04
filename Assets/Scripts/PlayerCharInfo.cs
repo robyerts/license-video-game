@@ -52,7 +52,7 @@ public class PlayerCharInfo
     {
         this.abilities = new List<int>();
         //needs to be tested
-        //charType = (CharacterType)Enum.Parse(typeof(CharacterType), PlayerPrefs.GetString("Character_" + Index + "_charType"));
+        charType = (CharacterType)Enum.Parse(typeof(CharacterType), PlayerPrefs.GetString("Character_" + Index + "_charType"));
         name = PlayerPrefs.GetString("Character_" + Index + "_name");
         maxHP = PlayerPrefs.GetInt("Character_" + Index + "_maxHP");
         maxMana =  PlayerPrefs.GetInt("Character_" + Index + "_maxMana");

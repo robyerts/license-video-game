@@ -8,17 +8,15 @@ public class MeleePlayerGameData2 : PlayerGameData2
 
     public List<float> AbilitiesAttackRanges;
 
-    void Start()
+    protected override void Start()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else if (Instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-        DontDestroyOnLoad(gameObject);
+    //    base.Start();
+    //    Instance = this;
+    }
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        Instance = this;
     }
 }
