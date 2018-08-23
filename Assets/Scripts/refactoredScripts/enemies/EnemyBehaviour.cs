@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyBehaviour : CharacterBehaviour {
     public int MaxHealth;
-    public GameObject Player;
+    public GameObject Player { get; set; }
 
     public List<int> abilitiesProbabilities;
     public List<string> abilitiesAnimNames;
@@ -65,6 +65,29 @@ public class EnemyBehaviour : CharacterBehaviour {
 
         currentHealth -= dmg;
         healthBar.UpdateBar(currentHealth, MaxHealth);
+
+        reactToTakenDmg();
+    }
+
+    protected void OnCollisionEnter(Collision c)
+    {
+        Debug.Log(c.gameObject.tag + " - inside EnemyBehaviour OnCollisionEnter");
+        if (MagePlayerGameData2.Instance == null)
+        {
+            return;
+        }
+
+        int projectileIndex = MagePlayerGameData2.Instance.ProjectilesTags.FindIndex(proj => proj.CompareTo(c.gameObject.tag) == 0);
+        if (projectileIndex != -1)
+        {
+            currentHealth -= MagePlayerGameData2.Instance.ProjectilesDmgs[projectileIndex];
+            healthBar.UpdateBar(currentHealth, MaxHealth);
+
+            reactToTakenDmg();
+        }
+    }
+    private void reactToTakenDmg()
+    {
         if (currentHealth <= 0)
         {
             anim.enabled = false;
@@ -74,18 +97,6 @@ public class EnemyBehaviour : CharacterBehaviour {
         }
         else
         {
-            StartCoroutine(RepositionFromHit());
-        }
-    }
-
-    protected void OnCollisionEnter(Collision c)
-    {
-        Debug.Log(c.gameObject.tag + " - inside EnemyBehaviour OnCollisionEnter");
-        int projectileIndex = MagePlayerGameData2.Instance.ProjectilesTags.FindIndex(proj => proj.CompareTo(c.gameObject.tag) == 0);
-        if (projectileIndex != -1)
-        {
-            currentHealth -= MagePlayerGameData2.Instance.ProjectilesDmgs[projectileIndex];
-            healthBar.UpdateBar(currentHealth, MaxHealth);
             StartCoroutine(RepositionFromHit());
         }
     }

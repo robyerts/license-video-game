@@ -30,7 +30,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesPrefabs.Array.size
-    value: 4
+    value: 5
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesPrefabs.Array.data[0]
@@ -49,8 +49,12 @@ Preset:
     value: 
     objectReference: {fileID: 141530, guid: 369eee557c4d41c479225bf744fa6a5f, type: 2}
   - target: {fileID: 0}
+    propertyPath: AbilitiesPrefabs.Array.data[4]
+    value: 
+    objectReference: {fileID: 197712, guid: 1dbd11d2ca3f29640b6bd21d7b6393d2, type: 2}
+  - target: {fileID: 0}
     propertyPath: AbilitiesAnimNames.Array.size
-    value: 4
+    value: 5
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesAnimNames.Array.data[0]
@@ -69,8 +73,12 @@ Preset:
     value: 2hMagicAttack02
     objectReference: {fileID: 0}
   - target: {fileID: 0}
+    propertyPath: AbilitiesAnimNames.Array.data[4]
+    value: 2hMagicAttack02
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
     propertyPath: AbilitiesNames.Array.size
-    value: 4
+    value: 5
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesNames.Array.data[0]
@@ -89,8 +97,12 @@ Preset:
     value: firebolt
     objectReference: {fileID: 0}
   - target: {fileID: 0}
+    propertyPath: AbilitiesNames.Array.data[4]
+    value: AOE tornado
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
     propertyPath: AbilitiesManaCosts.Array.size
-    value: 4
+    value: 5
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesManaCosts.Array.data[0]
@@ -106,11 +118,15 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesManaCosts.Array.data[3]
-    value: 18
+    value: 20
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesManaCosts.Array.data[4]
+    value: 25
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesDmg.Array.size
-    value: 4
+    value: 5
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesDmg.Array.data[0]
@@ -129,8 +145,12 @@ Preset:
     value: 20
     objectReference: {fileID: 0}
   - target: {fileID: 0}
+    propertyPath: AbilitiesDmg.Array.data[4]
+    value: 20
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
     propertyPath: AbilitiesForces.Array.size
-    value: 4
+    value: 5
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesForces.Array.data[0]
@@ -138,7 +158,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesForces.Array.data[1]
-    value: 8000
+    value: 7000
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesForces.Array.data[2]
@@ -149,8 +169,12 @@ Preset:
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
+    propertyPath: AbilitiesForces.Array.data[4]
+    value: 8000
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
     propertyPath: AbilitiesIcons.Array.size
-    value: 4
+    value: 5
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesIcons.Array.data[0]
@@ -167,7 +191,11 @@ Preset:
   - target: {fileID: 0}
     propertyPath: AbilitiesIcons.Array.data[3]
     value: 
-    objectReference: {fileID: 21300000, guid: a2d76e7d7dbf9e94cb7fb63c0849380f, type: 3}
+    objectReference: {fileID: 21300000, guid: 28f4a64773b2ef141bc72c59d67db866, type: 3}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesIcons.Array.data[4]
+    value: 
+    objectReference: {fileID: 21300000, guid: 4c025d9eb27f66d4f8d70e65d532b53a, type: 3}
   - target: {fileID: 0}
     propertyPath: ProjectilesTags.Array.size
     value: 1
@@ -186,7 +214,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesTypes.Array.size
-    value: 4
+    value: 5
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesTypes.Array.data[0]
@@ -205,16 +233,20 @@ Preset:
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
+    propertyPath: AbilitiesTypes.Array.data[4]
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
     propertyPath: AbilitiesInstatiateTrTags.Array.size
-    value: 4
+    value: 5
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesInstatiateTrTags.Array.data[0]
-    value: Abilities12InstatiatePos
+    value: Abilities12InstantiatePos
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesInstatiateTrTags.Array.data[1]
-    value: Abilities12InstatiatePos
+    value: Abilities12InstantiatePos
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesInstatiateTrTags.Array.data[2]
@@ -222,5 +254,9 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesInstatiateTrTags.Array.data[3]
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesInstatiateTrTags.Array.data[4]
     value: 
     objectReference: {fileID: 0}

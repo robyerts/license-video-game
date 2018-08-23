@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class MeleePlayerBehaviour : PlayerBehaviour
 {
     private List<float> abilitiesAttackRanges;
+    private List<MeleeAbilityInstantiateType> abilitiesTypes;
 
     private bool attackAnimPlayed;
     private bool hasToRotateBackwards;
@@ -15,6 +16,7 @@ public class MeleePlayerBehaviour : PlayerBehaviour
     {
         base.Start();
         abilitiesAttackRanges = MeleePlayerGameData2.Instance.AbilitiesAttackRanges;
+        abilitiesTypes = MeleePlayerGameData2.Instance.AbilitiesTypes;
         attackAnimPlayed = false;
         hasToRotateBackwards = false;
         isReturning = false;
@@ -86,28 +88,69 @@ public class MeleePlayerBehaviour : PlayerBehaviour
 
     public override void StartAttack(int attackNr)
     {
-        if (currentMana - abilitiesManaCosts[attackNr] <= 0)
+        if (currentMana - abilitiesManaCosts[attackNr] < 0)
         {
             return;
         }
         BattleManager2.Instance.ActivateGrayButtons();
         this.attackNr = attackNr;
-        isAttacking = true;
 
         currentMana -= abilitiesManaCosts[attackNr];
         manaBar.UpdateBar(currentMana, charInfo.MaxMana);
 
-        anim.SetBool("isRunning", true);
-        navMeshAgent.isStopped = false;
-        navMeshAgent.SetDestination(currentEnemyTransform.position);
+        switch (abilitiesTypes[attackNr])
+        {
+            case MeleeAbilityInstantiateType.NoInstatiate:
+                isAttacking = true;
+                anim.SetBool("isRunning", true);
+                navMeshAgent.isStopped = false;
+                navMeshAgent.SetDestination(currentEnemyTransform.position);
+                break;
+            case MeleeAbilityInstantiateType.HealingInstatiateOnSelf:
+                anim.Play(abilitiesAnimNames[attackNr]);
+                break;
+        }
+       
+       
+       
     }
 
     // parameter probably not needed since can there is a list for it
     public override void Hit()
     {
-        EnemyBehaviour enemyScript = currentEnemy.GetComponent<EnemyBehaviour>();
-        enemyScript.GetHit(abilitiesDmgs[attackNr], abilitiesAttackForces[attackNr]);
+        switch (abilitiesTypes[attackNr])
+        {
+            case MeleeAbilityInstantiateType.NoInstatiate:
+                EnemyBehaviour enemyScript = currentEnemy.GetComponent<EnemyBehaviour>();
+                enemyScript.GetHit(abilitiesDmgs[attackNr], abilitiesAttackForces[attackNr]);
+                break;
+            case MeleeAbilityInstantiateType.HealingInstatiateOnSelf:
+                GameObject instatiatedAbility = Instantiate(abilitiesPrefabs[attackNr], abilitiesInstatiateTr[attackNr].position, abilitiesInstatiateTr[attackNr].rotation);
+                StartCoroutine(ProcessAbility(instatiatedAbility, abilitiesDmgs[attackNr], abilitiesTimeBe4Attack[attackNr], abilitiesTimeBe4Destroy[attackNr], abilitiesTypes[attackNr]));
+                break;
+        }
       
+    }
+
+    IEnumerator ProcessAbility(GameObject instatiatedAbility, int abilityPower, float timeBe4Attack, float timeBe4Destroy, MeleeAbilityInstantiateType meleeAbilityInstantiateType)
+    {
+        switch (meleeAbilityInstantiateType)
+        {
+
+            case MeleeAbilityInstantiateType.HealingInstatiateOnSelf:
+                yield return ApplyHealingWithDelay(instatiatedAbility, abilityPower, timeBe4Attack);
+                break;
+        }
+
+        yield return DestroyWithDelay(instatiatedAbility, timeBe4Destroy - timeBe4Attack);
+        yield return new WaitForSeconds(1); // !! hardcoded number!!
+        BattleManager2.Instance.EnemiesAttacksOnGoing = true;
+    }
+
+    IEnumerator DestroyWithDelay(GameObject objectToDestroy, float timeBe4Destroy)
+    {
+        yield return new WaitForSeconds(timeBe4Destroy);
+        Destroy(objectToDestroy);
     }
 
     public override void EndHit()

@@ -8869,7 +8869,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e21e46ac43e992418677ef29252da6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1424854843}
+  magePlayerChar: {fileID: 0}
+  meleePlayerChar: {fileID: 0}
   endGameBtn: {fileID: 1424854852}
   upgradePanel: {fileID: 1424854851}
   grayButtons:

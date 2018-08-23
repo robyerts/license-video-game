@@ -7,8 +7,8 @@ public class PlayerBehaviour : CharacterBehaviour
 {
     public string DeathAnim;
     public string GotHitAnim;
-    public Transform currentEnemyTransform; // enemy has smth similar... // consider removing this
-    public GameObject currentEnemy;
+    public Transform currentEnemyTransform { get; set; } // enemy has smth similar... // consider removing this
+    public GameObject currentEnemy { get; set; }
     public Text nameLabel;
     public SimpleHealthBar manaBar;
     public GameObject RPGCharUI;
@@ -27,7 +27,8 @@ public class PlayerBehaviour : CharacterBehaviour
     protected List<int> abilitiesDmgs;
     protected List<int> abilitiesAttackForces;
     protected List<Sprite> abilitiesIcons;
-    protected int maxNrAbilitiesUI = 4;
+    public List<float> abilitiesTimeBe4Attack;
+    public List<float> abilitiesTimeBe4Destroy;
 
     protected List<GameObject> abilitiesButtons;
 
@@ -52,10 +53,11 @@ public class PlayerBehaviour : CharacterBehaviour
         abilitiesNames = PlayerGameData2.Instance.AbilitiesNames;
         abilitiesDmgs = PlayerGameData2.Instance.AbilitiesDmg;
         abilitiesAttackForces = PlayerGameData2.Instance.AbilitiesForces;
-        
+        abilitiesTimeBe4Attack = PlayerGameData2.Instance.abilitiesTimeBe4Attack;
+        abilitiesTimeBe4Destroy = PlayerGameData2.Instance.abilitiesTimeBe4Destroy;
+
         abilitiesIcons = PlayerGameData2.Instance.AbilitiesIcons;
         abilitiesManaCosts = PlayerGameData2.Instance.AbilitiesManaCosts;
-        maxNrAbilitiesUI = GameSettings2.MaxNrAbilitiesInBattle;
 
 
         abilitiesButtons = new List<GameObject>();
@@ -84,12 +86,13 @@ public class PlayerBehaviour : CharacterBehaviour
                 //it shouldn't get here
                 // don't allow more than maxNrAbilitiesUI to be stored!
                 // constraint to be added
-                if (btnIndex >= maxNrAbilitiesUI)
+                if (btnIndex >= abilitiesNames.Count)
                     break;
             }
         }
         // disable the rest of remaining buttons
-        for (int i = btnIndex; i < maxNrAbilitiesUI; i++)
+        // there are as many buttons as they are abilities
+        for (int i = btnIndex; i < abilitiesNames.Count; i++)
         {
             abilitiesButtons[i].SetActive(false);
         }
@@ -99,6 +102,18 @@ public class PlayerBehaviour : CharacterBehaviour
     public virtual void StartAttack(int attackNr)
     {
 
+    }
+
+    protected IEnumerator ApplyHealingWithDelay(GameObject instatiatedAbility, int healing, float timeBe4Healing)
+    {
+        yield return new WaitForSeconds(timeBe4Healing);
+
+        this.currentHealth += healing;
+        if (currentHealth > charInfo.MaxHP)
+        {
+            currentHealth = charInfo.MaxHP;
+        }
+        healthBar.UpdateBar(currentHealth, charInfo.MaxHP);
     }
 
     public virtual void Hit()

@@ -5,11 +5,11 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/MainMenuScene.unity
     guid: a23e56c983c238c4b85dee3c72e5c782
-  - enabled: 1
-    path: Assets/removedColliderPhysics.unity
+  - enabled: 0
+    path: Assets/Mission1Melee.unity
     guid: 6e1f44705682934429051d49e617457a
   - enabled: 0
     path: Assets/Photon Unity Networking/Demos/PunBasics-Tutorial/Scenes/PunBasics-Launcher.unity
@@ -33,4 +33,22 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Photon Unity Networking/Demos/DemoChat/DemoChat-Scene.unity
     guid: ec07267f6a28fb044ac89845274e79af
+  - enabled: 0
+    path: Assets/Mission4.unity
+    guid: e9b981d97c88e884db4091594854c473
+  - enabled: 1
+    path: Assets/MainMenuSceneRefactored.unity
+    guid: d3748aa44fd279c4e84566a950a8845b
+  - enabled: 1
+    path: Assets/Mission1Refactored.unity
+    guid: f33ac132351c0c54cbbcfcf29d20e2a6
+  - enabled: 1
+    path: Assets/Mission2Refactored.unity
+    guid: 6faf69fe5437f214284967b2fe49b1b8
+  - enabled: 1
+    path: Assets/Mission3Refactored.unity
+    guid: 0e4f9e3056d153346bf02ed5cc8dddfe
+  - enabled: 0
+    path: Assets/Mission4Refactored.unity
+    guid: 8ab8f6053c46bdd4881eb7ac3e793eca
   m_configObjects: {}

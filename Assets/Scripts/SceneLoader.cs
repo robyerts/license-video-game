@@ -24,9 +24,9 @@ public class SceneLoader : MonoBehaviour {
 		
 	}
 
-    public void loadMission1Scene()
+    public void loadMissionScene(int missionNr)
     {
-        StartCoroutine(LoadSceneAsync("Mission1"));
+        StartCoroutine(LoadSceneAsync("Mission" + missionNr + "Refactored"));
     }
 
     public void loadMenuScene()
@@ -54,5 +54,6 @@ public class SceneLoader : MonoBehaviour {
     {
         yield return StartCoroutine(LoadSceneAsync("MainMenuSceneRefactored"));
         MenuManager.instance.disableCharsPanel();
+        MenuManager.instance.setUpPlayerGameData();
     }
 }

@@ -55,6 +55,7 @@ public class MageEnemyBehaviour : EnemyBehaviour {
         switch (abilitiesTypes[attackNr])
         {
             case MageAbilityInstantiateType.DmgIntantiateOnEnemy:
+            case MageAbilityInstantiateType.DmgAOEInstatiateOnEnemies:
                 //for flamethrower: 1, 2.1
                 StartCoroutine(ProcessAbility(instatiatedAbility, abilitiesPowers[attackNr], abilitiesTimeBe4Attack[attackNr], abilitiesTimeBe4Destroy[attackNr], MageAbilityType.Dmg));
                 break;
@@ -124,6 +125,7 @@ public class MageEnemyBehaviour : EnemyBehaviour {
         }
 
         attackNr = selectRandomAbilityIndex();
+        //Time.timeScale = 0.1f;
         anim.Play(abilitiesAnimNames[attackNr]);
     }
 }

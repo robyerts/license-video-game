@@ -12,76 +12,50 @@ public class PlayerCharInfo
     private string name;
     private int maxHP;
     private int maxMana;
-    private int currentXP;// not in use
     private int missionsCompleted;
     private List<int> abilities;
 
+    public static int startingHP = 100;
+    public static int startingMana = 60;
+    public static int nrAbilities = 6;
+
     public PlayerCharInfo(int index, string name, CharacterType charType)
     {
-        //hardcoded values
-        //create static fields for initial hp, mana,.. values
         this.charType = charType;
         this.index = index;
         this.name = name;
-        this.maxHP = 100;
-        this.maxMana = 60;
-        this.currentXP = 0;
+        this.maxHP = startingHP;
+        this.maxMana = startingMana;
         this.missionsCompleted = 0;
-        this.abilities = new List<int>(new int[] { 1,1,0,0 });
+
+        SetAbilities(2);
     }
 
-    public PlayerCharInfo(int index)
+    public PlayerCharInfo(int index, string name, int maxHP, int maxMana, int missionsCompleted, List<int> abilities, CharacterType charType)
     {
-        this.Index = index;
-        this.abilities = new List<int>();
-        
+        this.charType = charType;
+        this.index = index;
+        this.name = name;
+        this.maxHP = maxHP;
+        this.maxMana = maxMana;
+        this.missionsCompleted = missionsCompleted;
+        this.abilities = abilities;
+
     }
 
-    public void Save()
-    {
-        PlayerPrefs.SetString("Character_" + Index + "_name", name);
-        PlayerPrefs.SetString("Character_" + Index + "_charType", charType.ToString());
-        PlayerPrefs.SetInt("Character_" + Index + "_maxHP", maxHP);
-        PlayerPrefs.SetInt("Character_" + Index + "_maxMana", maxMana);
-        PlayerPrefs.SetInt("Character_" + Index + "_currentXP", CurrentXP);
-        PlayerPrefs.SetInt("Character_" + Index + "_missionsCompleted", missionsCompleted);
-        //Debug.Log(string.Join(",", abilities.Select(x => x.ToString()).ToArray()));
-        PlayerPrefs.SetString("Character_" + Index + "_abilities", string.Join(",", abilities.Select(x => x.ToString()).ToArray()));
-    }
-    public void Load()
+    public void SetAbilities(int startingAbilities)
     {
         this.abilities = new List<int>();
-        //needs to be tested
-        charType = (CharacterType)Enum.Parse(typeof(CharacterType), PlayerPrefs.GetString("Character_" + Index + "_charType"));
-        name = PlayerPrefs.GetString("Character_" + Index + "_name");
-        maxHP = PlayerPrefs.GetInt("Character_" + Index + "_maxHP");
-        maxMana =  PlayerPrefs.GetInt("Character_" + Index + "_maxMana");
-        currentXP = PlayerPrefs.GetInt("Character_" + Index + "_currentXP");
-        missionsCompleted = PlayerPrefs.GetInt("Character_" + Index + "_missionsCompleted");
-        //Debug.Log(string.Join(",", abilities.Select(x => x.ToString()).ToArray()));
-        string abilitiesString;
-        abilitiesString = PlayerPrefs.GetString("Character_" + Index + "_abilities");
-        convertStringToAbilities(abilitiesString);
-    }
-
-    public void Delete()
-    {
-        PlayerPrefs.DeleteKey("Character_" + Index + "_name");
-        PlayerPrefs.DeleteKey("Character_" + Index + "_maxHP");
-        PlayerPrefs.DeleteKey("Character_" + Index + "_maxMana");
-        PlayerPrefs.DeleteKey("Character_" + Index + "_currentXP");
-        PlayerPrefs.DeleteKey("Character_" + Index + "_missionsCompleted");
-        PlayerPrefs.DeleteKey("Character_" + Index + "_abilities");
-    }
-
-    private void convertStringToAbilities(string abilitiesString)
-    {
-        string[] booleanChars = abilitiesString.Split(',');
-        foreach(string boolChar in booleanChars)
+        for(int i = 0; i < nrAbilities; i++)
         {
-            abilities.Add(Int32.Parse(boolChar));
+            if(i < startingAbilities)
+            {
+                abilities.Add(1);
+            } else
+            {
+                abilities.Add(0);
+            }
         }
-        //Debug.Log("abilities deserialized " + string.Join(",", abilities.Select(x => x.ToString()).ToArray()));
     }
 
     public string Name
@@ -149,18 +123,6 @@ public class PlayerCharInfo
         }
     }
 
-    public int CurrentXP
-    {
-        get
-        {
-            return currentXP;
-        }
-
-        set
-        {
-            currentXP = value;
-        }
-    }
 
     public int MissionsCompleted
     {
@@ -175,7 +137,7 @@ public class PlayerCharInfo
         }
     }
 
-    internal CharacterType CharType
+    public CharacterType CharType
     {
         get
         {

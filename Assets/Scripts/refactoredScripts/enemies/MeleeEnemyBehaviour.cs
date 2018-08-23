@@ -1,19 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class MeleeEnemyBehaviour : EnemyBehaviour
 {
-    private Transform playerTransform;
     private bool isAtacking;
     private bool attackAnimPlayed;
     private bool hasToRotateBackwards;
     private bool isReturning;
 
+    public List<float> abilitiesRanges;
+
     // Use this for initialization
     protected override void Start()
     {
         base.Start();
-        playerTransform = Player.transform;
         isAtacking = false;
         attackAnimPlayed = false;
         hasToRotateBackwards = false;
@@ -23,7 +24,7 @@ public class MeleeEnemyBehaviour : EnemyBehaviour
     // Update is called once per frame
     protected override void Update()
     {
-        if (isAtacking && !attackAnimPlayed && Vector3.Distance(transform.position, playerTransform.position) < 4) // hardcoded ability attack range
+        if (isAtacking && !attackAnimPlayed && Vector3.Distance(transform.position, Player.transform.position) < abilitiesRanges[attackNr])
         {
             navMeshAgent.isStopped = true;
             anim.SetBool("isRunning", false);
@@ -86,7 +87,7 @@ public class MeleeEnemyBehaviour : EnemyBehaviour
         isAtacking = true;
         anim.SetBool("isRunning", true);
         navMeshAgent.isStopped = false;
-        navMeshAgent.SetDestination(playerTransform.position);
+        navMeshAgent.SetDestination(Player.transform.position);
 
         attackNr = selectRandomAbilityIndex();
     }

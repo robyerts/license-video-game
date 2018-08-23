@@ -9,14 +9,18 @@ public class MenuManager : MonoBehaviour {
     public static MenuManager instance = null;
 
     [SerializeField] private Text charName;
+    [SerializeField] private Dropdown charTypeDropdown;
     [SerializeField] private GameObject newCharNamePanel;
     [SerializeField] private GameObject charsPanel;
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private List<Text> emptySlotLabels;
     [SerializeField] private List<GameObject> characterSlots;
     [SerializeField] private GameObject playerGameDataObj;
+    private PlayerCharInfoStorage charStorage;
 
-    private static int maxNrChars = 4;
+    private static int maxNrChars = 4; // UI hardcoded // equals to charSlots.size
+    private static int charIndex;
+    private static PlayerCharInfo charInfo;
 
     void Awake()
     {
@@ -24,15 +28,11 @@ public class MenuManager : MonoBehaviour {
         {
             instance = this;
         }
-        //shouldn't be needed
-        //else if (instance != this)
-        //{
-        //    Destroy(this.gameObject);
-        //}
     }
 
     // Use this for initialization
     void Start () {
+        charStorage = new PlayerPrefStorage();
         //PlayerPrefs.DeleteAll();
         PlayerPrefs.SetInt("maxNrCharacters", maxNrChars); //hardcoded & UI aswell
         //modifyCharTest();
@@ -52,8 +52,7 @@ public class MenuManager : MonoBehaviour {
         {
             if (!isSlotEmpty(index))
             {
-                PlayerCharInfo character = new PlayerCharInfo(index);
-                character.Load();
+                PlayerCharInfo character = charStorage.LoadChar(index);
                 populateCharSlot(character);
             }
         }
@@ -83,6 +82,16 @@ public class MenuManager : MonoBehaviour {
         Text maxMana = characterSlots[index].transform.Find("MaxMana").gameObject.GetComponent<Text>();
         maxMana.text = character.MaxMana.ToString();
 
+        Text charType = characterSlots[index].transform.Find("CharType").gameObject.GetComponent<Text>();
+
+        if(character.CharType == CharacterType.MeleeCharacter)
+        {
+            charType.text = "Melee";
+        } else
+        {
+            charType.text = "Ranged";
+        }
+
         Text unlockedAbilities = characterSlots[index].transform.Find("NrUnlockedAbilities").gameObject.GetComponent<Text>();
         unlockedAbilities.text = character.Abilities.Where(x => x == 1).Count().ToString();
     }
@@ -96,10 +105,17 @@ public class MenuManager : MonoBehaviour {
             return;
             //error window
         }
-        PlayerCharInfo character = new PlayerCharInfo(indexAvailableSlot, charName.text, CharacterType.MeleeCharacter);
-        character.Save();
-        //SceneLoader.instance.Character = character;
-        PlayerGameData2.Instance.CharInfo = character;
+        
+        if(charTypeDropdown.value == 0)
+        {
+            charInfo = new PlayerCharInfo(indexAvailableSlot, charName.text, CharacterType.RangedCharacter);
+        } else
+        {
+            charInfo = new PlayerCharInfo(indexAvailableSlot, charName.text, CharacterType.MeleeCharacter);
+        }
+        charStorage.SaveChar(charInfo);
+
+        setUpPlayerGameData();
 
         PlayerPrefs.SetInt("nrChars", PlayerPrefs.GetInt("nrChars", 0) + 1);
         disableCharsPanel();
@@ -134,37 +150,42 @@ public class MenuManager : MonoBehaviour {
         PlayerCharInfo character = new PlayerCharInfo(0, "fufu", CharacterType.MeleeCharacter);
         character.MaxHP = 120;
         character.MaxMana = 130;
-        character.Save();
+        //character.Save();
     }
 
     public void deleteCharacter(int index)
     {
         //ask confirmation windows
-        PlayerCharInfo character = new PlayerCharInfo(index);
-        character.Delete();
+        charStorage.DeleteChar(index);
         emptySlotLabels[index].gameObject.SetActive(true);
         characterSlots[index].SetActive(false);
     }
 
     public void loadCharacter(int index)
     {
-        PlayerCharInfo character = new PlayerCharInfo(index);
-        Debug.Log("character type - loadCharacter function: " + character.CharType.ToString());
-        character.Load();
-        //tb removed
-        character.CharType = CharacterType.RangedCharacter;
-        character.Save();
-        
-        if(character.CharType == CharacterType.MeleeCharacter)
-        {
-            playerGameDataObj.GetComponent<MeleePlayerGameData2>().enabled = true;
-        } else
-        {
-            playerGameDataObj.GetComponent<MagePlayerGameData2>().enabled = true;
-        }
+        charIndex = index;
+        setUpPlayerGameData();
 
-        PlayerGameData2.Instance.CharInfo = character;
         disableCharsPanel();
+    }
+
+    public void setUpPlayerGameData()
+    {
+        charInfo = charStorage.LoadChar(charIndex);
+        if (charInfo.CharType == CharacterType.MeleeCharacter)
+        {
+            MeleePlayerGameData2 meleePlayerGameData2Component = playerGameDataObj.GetComponent<MeleePlayerGameData2>();
+            MeleePlayerGameData2.Instance = meleePlayerGameData2Component;
+            PlayerGameData2.Instance = meleePlayerGameData2Component;
+        }
+        else
+        {
+            MagePlayerGameData2 magePlayerGameData2Component = playerGameDataObj.GetComponent<MagePlayerGameData2>();
+            MagePlayerGameData2.Instance = magePlayerGameData2Component;
+            PlayerGameData2.Instance = magePlayerGameData2Component;
+        }
+        PlayerGameData2.GameObjectInstances = 1;
+        PlayerGameData2.Instance.CharInfo = charInfo;
     }
 
     public void disableCharsPanel()
@@ -174,9 +195,14 @@ public class MenuManager : MonoBehaviour {
         mainMenuPanel.SetActive(true);
     }
 
-    public void loadMission1Scene()
+    public void enableCharsPanel()
     {
-        SceneLoader.instance.loadMission1Scene();
+        newCharNamePanel.SetActive(true);
+        charsPanel.SetActive(true);
+        mainMenuPanel.SetActive(false);
+
+        //updatechar you played with
+
     }
 
 }

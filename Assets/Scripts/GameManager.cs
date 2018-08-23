@@ -176,7 +176,7 @@ public class GameManager : MonoBehaviour
                 break;
         }
         character.MissionsCompleted++;
-        character.Save();
+        //character.Save();
         PlayerGameSettings.instance.CharInfo = character; // it is not the same instance? - GetComponent<Player>().Character doesn't return the same instance?
         loadMenuScene();
     }

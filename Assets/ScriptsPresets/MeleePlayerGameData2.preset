@@ -34,7 +34,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesAnimNames.Array.size
-    value: 4
+    value: 5
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesAnimNames.Array.data[0]
@@ -53,8 +53,12 @@ Preset:
     value: Unarmed-Attack-Kick-R1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
+    propertyPath: AbilitiesAnimNames.Array.data[4]
+    value: Attack1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
     propertyPath: AbilitiesNames.Array.size
-    value: 4
+    value: 5
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesNames.Array.data[0]
@@ -66,15 +70,19 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesNames.Array.data[2]
-    value: left kick
+    value: left kiick
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesNames.Array.data[3]
     value: right kick
     objectReference: {fileID: 0}
   - target: {fileID: 0}
+    propertyPath: AbilitiesNames.Array.data[4]
+    value: double punch
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
     propertyPath: AbilitiesManaCosts.Array.size
-    value: 4
+    value: 5
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesManaCosts.Array.data[0]
@@ -90,31 +98,39 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesManaCosts.Array.data[3]
-    value: 18
+    value: 15
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesManaCosts.Array.data[4]
+    value: 20
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesDmg.Array.size
-    value: 4
+    value: 5
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesDmg.Array.data[0]
-    value: 111
+    value: 10
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesDmg.Array.data[1]
-    value: 222
+    value: 15
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesDmg.Array.data[2]
-    value: 333
+    value: 20
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesDmg.Array.data[3]
-    value: 444
+    value: 25
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesDmg.Array.data[4]
+    value: 35
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesForces.Array.size
-    value: 4
+    value: 5
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesForces.Array.data[0]
@@ -133,8 +149,12 @@ Preset:
     value: 9000
     objectReference: {fileID: 0}
   - target: {fileID: 0}
+    propertyPath: AbilitiesForces.Array.data[4]
+    value: 10000
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
     propertyPath: AbilitiesIcons.Array.size
-    value: 4
+    value: 5
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesIcons.Array.data[0]
@@ -151,10 +171,14 @@ Preset:
   - target: {fileID: 0}
     propertyPath: AbilitiesIcons.Array.data[3]
     value: 
-    objectReference: {fileID: 21300000, guid: a2d76e7d7dbf9e94cb7fb63c0849380f, type: 3}
+    objectReference: {fileID: 21300000, guid: 28f4a64773b2ef141bc72c59d67db866, type: 3}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesIcons.Array.data[4]
+    value: 
+    objectReference: {fileID: 21300000, guid: 4c025d9eb27f66d4f8d70e65d532b53a, type: 3}
   - target: {fileID: 0}
     propertyPath: AbilitiesAttackRanges.Array.size
-    value: 4
+    value: 5
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: AbilitiesAttackRanges.Array.data[0]
@@ -171,4 +195,8 @@ Preset:
   - target: {fileID: 0}
     propertyPath: AbilitiesAttackRanges.Array.data[3]
     value: 2.8
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: AbilitiesAttackRanges.Array.data[4]
+    value: 3.5
     objectReference: {fileID: 0}

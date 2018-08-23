@@ -15,13 +15,6 @@ public class MagePlayerGameData2 : PlayerGameData2
 
     protected override void Start()
     {
-        //base.Start();
-        //Instance = this;
-    }
-
-    protected override void OnEnable()
-    {
-        base.OnEnable();
-        Instance = this;
+        base.Start();
     }
 }

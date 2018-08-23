@@ -8,18 +8,21 @@ public class BattleManager2 : MonoBehaviour
 {
     public static BattleManager2 Instance = null;
 
-    [SerializeField] private GameObject player; // remove player instance; use prefab to INSTANTIATE
+    [SerializeField] private GameObject magePlayerChar;
+    [SerializeField] private GameObject meleePlayerChar;
+    private GameObject playerChar; 
     private PlayerBehaviour playerScript;
     [SerializeField] private Button endGameBtn;
     [SerializeField] private GameObject upgradePanel;
     [SerializeField] private List<Button> grayButtons; // use RPG-CharacterUI
     private int indexCurrentAttackingEnemy = -1;
+    private PlayerCharInfoStorage charStorage;
 
-    public bool GameOver = false;
+    public bool GameOver { get; set; }
     public List<GameObject> Enemies;
-    public bool EnemyFinishedAttack = true;
-    public bool EnemiesAttacksOnGoing = false;
-    public bool MissionSucceeded = false;
+    public bool EnemyFinishedAttack { get; set; }
+    public bool EnemiesAttacksOnGoing { get; set; }
+    public bool MissionSucceeded { get; set; }
 
     // public accesor mandatory
     public int NewAbilityIndex = -1;
@@ -27,8 +30,8 @@ public class BattleManager2 : MonoBehaviour
     public int IncreseManaBy = 15;
     public int MissionNumber = 1;
 
-    public List<string> EnemiesProjectileTags;
-    public List<int> EnemiesProjectileDmgs;
+    public List<string> EnemiesProjectileTags { get; set; }
+    public List<int> EnemiesProjectileDmgs { get; set; }
 
     void Awake()
     {
@@ -40,10 +43,27 @@ public class BattleManager2 : MonoBehaviour
 
     void Start()
     {
+        GameOver = false;
+        EnemyFinishedAttack = true;
+        EnemiesAttacksOnGoing = false;
+        MissionSucceeded = false;
+
+        charStorage = new PlayerPrefStorage();
+
+        if(PlayerGameData2.Instance.CharInfo.CharType == CharacterType.MeleeCharacter)
+        {
+            meleePlayerChar.SetActive(true);
+            playerChar = meleePlayerChar;
+        } else
+        {
+            magePlayerChar.SetActive(true);
+            playerChar = magePlayerChar;
+        }
+
         EnemiesProjectileTags = new List<string>();
         EnemiesProjectileDmgs = new List<int>();
 
-        playerScript = player.GetComponent<PlayerBehaviour>();
+        playerScript = playerChar.GetComponent<PlayerBehaviour>();
         playerScript.currentEnemy = Enemies[0];
 
         initializeEnemiesPlayerField();
@@ -55,7 +75,7 @@ public class BattleManager2 : MonoBehaviour
     {
         foreach(GameObject enemy in Enemies)
         {
-            enemy.GetComponent<EnemyBehaviour>().Player = player;
+            enemy.GetComponent<EnemyBehaviour>().Player = playerChar;
         }
     }
     
@@ -127,7 +147,7 @@ public class BattleManager2 : MonoBehaviour
             ActivateGrayButtons();
             return;
         }
-        PlayerBehaviour playerScript = player.GetComponent<PlayerBehaviour>();
+        PlayerBehaviour playerScript = playerChar.GetComponent<PlayerBehaviour>();
         if (playerScript.currentEnemy == deadEnemy)
         {
             playerScript.currentEnemy = Enemies[0];
@@ -216,12 +236,13 @@ public class BattleManager2 : MonoBehaviour
                 break;
         }
         character.MissionsCompleted++;
-        character.Save();
+        charStorage.SaveChar(character);
         PlayerGameData2.Instance.CharInfo = character; // GetComponent<Player>().Character doesn't return the same instance 
         loadMenuScene();
     }
     public void loadMenuScene()
     {
+       
         SceneLoader.instance.loadMenuScene();
     }
 
